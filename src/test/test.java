@@ -12,7 +12,6 @@ public class test {
         int a, b;
         while (di.hasNext()) {
             line = di.readLine();
-            System.out.println(line);
             params = line.split(",");
             a = Integer.parseInt(params[0]);
             b = Integer.parseInt(params[1]);
