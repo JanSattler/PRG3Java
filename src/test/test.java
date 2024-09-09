@@ -6,6 +6,7 @@ import fileworks.DataImport;
 public class test {
     public static void main(String[] args) {
         DataImport di = new DataImport("inputs.txt");
+        DataExport de = new DataExport("outputs.txt");
 
         String line;
         String[] params;
@@ -17,19 +18,20 @@ public class test {
             b = Integer.parseInt(params[1]);
             switch (params[2]) {
                 case "A":
-                    System.out.println(a+b); break;
+                    de.writeLine(String.valueOf(a+b)); break;
 
                 case "S":
-                    System.out.println(a-b); break;
+                    de.writeLine(String.valueOf(a-b)); break;
 
                 case "M":
-                    System.out.println(a*b); break;
+                    de.writeLine(String.valueOf(a*b)); break;
 
                 case "D":
-                    System.out.println(a/b); break;
+                    de.writeLine(String.valueOf(a/b)); break;
             }
         }
         //di.printFile();
         di.finishImport();
+        de.finishExport();
     }
 }
