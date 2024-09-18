@@ -5,7 +5,19 @@ import fileworks.DataImport;
 public class PersonReading {
     public static void main(String[] args) {
         DataImport di = new DataImport("osoba.txt");
-
+        String line;
+        String[] attributes;
+        Person p;
+        while (di.hasNext()) {
+            line = di.readLine();
+            attributes = line.split(",");
+            p = new Person(
+                    attributes[0],
+                    Integer.parseInt(attributes[1]),
+                    Integer.parseInt(attributes[2]),
+                    Integer.parseInt(attributes[3])
+            );
+        }
         di.finishImport();
     }
 }
