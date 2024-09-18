@@ -8,6 +8,8 @@ public class PersonReading {
         String line;
         String[] attributes;
         Person p;
+
+        Person tallest = new Person("tmp", Integer.MIN_VALUE, 0, 0);
         while (di.hasNext()) {
             line = di.readLine();
             attributes = line.split(",");
@@ -17,7 +19,8 @@ public class PersonReading {
                     Integer.parseInt(attributes[2]),
                     Integer.parseInt(attributes[3])
             );
-        }
+        };
+        System.out.println("tallest: " + tallest);
         di.finishImport();
     }
 }
