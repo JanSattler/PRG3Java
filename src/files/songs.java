@@ -18,6 +18,7 @@ public class songs {
             System.out.println(s);
         }
 
+        de.finishExport();
         di.finishImport();
     }
 }
