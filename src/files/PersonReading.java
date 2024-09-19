@@ -19,6 +19,9 @@ public class PersonReading {
                     Integer.parseInt(attributes[2]),
                     Integer.parseInt(attributes[3])
             );
+            if (p.height > tallest.height){
+              tallest = p;
+            };
         };
         System.out.println("tallest: " + tallest);
         di.finishImport();
