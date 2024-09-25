@@ -11,7 +11,7 @@ public class countryRead {
         Country biggestCountry = new Country("none", "none", 0, 0);
         int europe = 0;
         DataImport di = new DataImport("countries.txt");
-        // TODO: 23.09.2024 1 - spocitat prumerny vek dozity
+        // TODO: 23.09.2024 1 - spocitat prumerny vek doziti
         // TODO: 23.09.2024 2 - nejvetsi zeme rozlohou
         // TODO: 23.09.2024 3 - pocet zemi v evrope
         while (di.hasNext()){
