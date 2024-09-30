@@ -12,4 +12,6 @@ public class Surgeon extends Doctor{
         System.out.println("Cutting open...");
         salary += 5000;
     }
+
+    
 }
