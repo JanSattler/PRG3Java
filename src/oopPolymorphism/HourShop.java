@@ -1,6 +1,10 @@
 package oopPolymorphism;
 
 public class HourShop {
+
+    static void callPrint(Clock c){
+        c.printTime();
+    }
     public static void main(String[] args) {
         HourClock hours = new HourClock();
         hours.seconds = 7700;
