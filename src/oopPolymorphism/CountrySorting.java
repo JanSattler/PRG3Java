@@ -61,7 +61,7 @@ class Country implements Comparable<Country> {
     static final Comparator<Country> BY_NAME = new Comparator<Country>() {
         @Override
         public int compare(Country o1, Country o2) {
-            return o1.name.compareTo(o2.name);
+            return Double.compare(o1.lifeExpectancy, o2.lifeExpectancy);
         }
     };
 
