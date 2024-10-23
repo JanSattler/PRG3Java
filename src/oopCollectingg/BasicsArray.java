@@ -29,5 +29,9 @@ public class BasicsArray {
         nums2[5] = 40;
 
         //int[] je primitivní, nemá žádné metody, musim zavolat knihovnu
+
+        //jednoduchá ukázka řazení
+        Arrays.sort(nums3); //použije quicksort
+        System.out.println(Arrays.toString(nums3));
     }
 }
