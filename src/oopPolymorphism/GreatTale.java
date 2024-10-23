@@ -11,15 +11,20 @@ public class GreatTale {
     /**
      * Tato metoda by mela zvladnout praci s TextMsg i Book
      */
-    static int wordCount(Object o){
-        String[] words;
-        if (o instanceof TextMsg) {
-            words = ((TextMsg) o).text.split(" ");
-            return words.length;
-        } else {
-            words = ((Book) o).getText().split(" ");
-            return words.length+((Book) o).pages.size()-1;
-        }
+    //static int wordCount(Object o){
+    //    String[] words;
+    //    if (o instanceof TextMsg) {
+    //        words = ((TextMsg) o).text.split(" ");
+    //        return words.length;
+    //    } else {
+    //        words = ((Book) o).getText().split(" ");
+    //        return words.length+((Book) o).pages.size()-1;
+    //    }
+    //}
+
+    static int wordCount(Readable toCount) {
+        String read = toCount.getText();
+        return  read.split(" ").length;
     }
 
     static void init(){
