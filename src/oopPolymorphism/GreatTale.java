@@ -93,7 +93,7 @@ class Book implements Readable{
     public String getText() {
         String text = "";
         for (int i = 0; i < this.pages.size(); i++) {
-            text += this.pages.get(i) + "\n";
+            text += this.pages.get(i) + "\n"; //nebo .append
         }
         return text;
     }
