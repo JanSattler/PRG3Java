@@ -115,22 +115,31 @@ public class SortingTest {
 
     public static void main(String[] args) {
         int[] arr = generateArray(10000);
-        int[] another = Arrays.copyOf(arr, arr.length); //to length je jak velkou část kopíruju
+        //int[] another = Arrays.copyOf(arr, arr.length); //to length je jak velkou část kopíruju
+        int[] another;
+        long stop, start;
         ISortingAlgorithm[] algorithms = {new BubbleSort(), new SelectionSort(), new InsertSort(), new QuickSort()};
+        for (int i = 0; i < algorithms.length; i++) {
+            another = Arrays.copyOf(arr, arr.length);
+            start = System.currentTimeMillis();
+            algorithms[i].sort(another);
+            stop = System.currentTimeMillis();
+            System.out.println(algorithms[i].getClass() + ": "+(stop - start) + " ms");
+        }
 
-        long start = System.currentTimeMillis();
-        //System.nanoTime(); //přesnější
-        BubbleSort bs = new BubbleSort();
-        bs.sort(another);
-        long stop = System.currentTimeMillis();
-        System.out.println("Bubble: "+(stop - start)+" ms");
-
-        another = Arrays.copyOf(arr, arr.length);
-        start = System.currentTimeMillis();
-        SelectionSort ss = new SelectionSort();
-        ss.sort(another);
-        stop = System.currentTimeMillis();
-        System.out.println("Select: "+(stop - start)+" ms");
+        //long start = System.currentTimeMillis();
+        ////System.nanoTime(); //přesnější
+        //BubbleSort bs = new BubbleSort();
+        //bs.sort(another);
+        //long stop = System.currentTimeMillis();
+        //System.out.println("Bubble: "+(stop - start)+" ms");
+//
+        //another = Arrays.copyOf(arr, arr.length);
+        //start = System.currentTimeMillis();
+        //SelectionSort ss = new SelectionSort();
+        //ss.sort(another);
+        //stop = System.currentTimeMillis();
+        //System.out.println("Select: "+(stop - start)+" ms");
 
         //System.out.println(Arrays.toString(arr));
         //Arrays.sort(arr);
