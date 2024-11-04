@@ -115,12 +115,28 @@ public class SortingTest {
 
     public static void main(String[] args) {
         int[] arr = generateArray(10000);
-        System.out.println(Arrays.toString(arr));
-        Arrays.sort(arr);
-        System.out.println(Arrays.toString(arr));
-        System.out.println("Default sort done!");
-        QuickSort qs = new QuickSort();
-        qs.sort(arr);
-        System.out.println(Arrays.toString(arr));
+        int[] another = Arrays.copyOf(arr, arr.length); //to length je jak velkou část kopíruju
+
+        long start = System.currentTimeMillis();
+        //System.nanoTime(); //přesnější
+        BubbleSort bs = new BubbleSort();
+        bs.sort(another);
+        long stop = System.currentTimeMillis();
+        System.out.println("Bubble: "+(stop - start)+" ms");
+
+        another = Arrays.copyOf(arr, arr.length);
+        start = System.currentTimeMillis();
+        SelectionSort ss = new SelectionSort();
+        ss.sort(another);
+        stop = System.currentTimeMillis();
+        System.out.println("Select: "+(stop - start)+" ms");
+
+        //System.out.println(Arrays.toString(arr));
+        //Arrays.sort(arr);
+        //System.out.println(Arrays.toString(arr));
+        //System.out.println("Default sort done!");
+        //QuickSort qs = new QuickSort();
+        //qs.sort(arr);
+        //System.out.println(Arrays.toString(arr));
     }
 }
