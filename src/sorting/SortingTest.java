@@ -116,6 +116,7 @@ public class SortingTest {
     public static void main(String[] args) {
         int[] arr = generateArray(10000);
         int[] another = Arrays.copyOf(arr, arr.length); //to length je jak velkou část kopíruju
+        ISortingAlgorithm[] algorithms = {new BubbleSort(), new SelectionSort(), new InsertSort(), new QuickSort()};
 
         long start = System.currentTimeMillis();
         //System.nanoTime(); //přesnější
