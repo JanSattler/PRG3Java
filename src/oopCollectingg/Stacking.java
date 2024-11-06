@@ -18,6 +18,13 @@ class ArrayStack {  //reprezentuje vlastní kolekci
     int[] data;
     int freeIndex;
 
+
+    void expandArray(){
+        int[] newOne = new int[data.length*2];
+
+    }
+
+
     ArrayStack(int capacity){
         data = new int[capacity];
         freeIndex = 0;
