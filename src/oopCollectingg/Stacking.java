@@ -21,7 +21,10 @@ class ArrayStack {  //reprezentuje vlastní kolekci
 
     void expandArray(){
         int[] newOne = new int[data.length*2];
-
+        for (int i = 0; i < data.length; i++) {
+            newOne[i] = data[i];
+        }
+        data = newOne;
     }
 
 
