@@ -1,6 +1,7 @@
 package oopCollectingg;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 public class Stacking { //stack = kolekce
     public static void main(String[] args) {
@@ -81,13 +82,19 @@ class LinkStack{
         else {
             Link newTop = new Link();
             newTop.data = toAdd;
-            newTop.next = top;
-            top = newTop;
+            newTop.next = top;  //stary vrchol bude hned za novym
+            top = newTop;   //prohlasim za novy vrchol zasobniku
         }
     }
 
     int pop(){
-        return 0;
+        if (top == null){
+            //idealne hodit chybu
+            throw new EmptyStackException();
+        }
+        int toReturn = top.data;
+        top = top.next; //to, co bylo pod topem je nyni top, nemusi tam byt nic
+        return toReturn;
     }
 
     int peek(){
