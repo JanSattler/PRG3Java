@@ -73,7 +73,17 @@ class LinkStack{
     }
 
     void push(int toAdd){
-
+        //prvni prvek:
+        if (top == null){
+            top = new Link();
+            top.data = toAdd;
+        } //už tam něco je:
+        else {
+            Link newTop = new Link();
+            newTop.data = toAdd;
+            newTop.next = top;
+            top = newTop;
+        }
     }
 
     int pop(){
