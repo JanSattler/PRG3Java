@@ -2,7 +2,7 @@ package oopCollectingg;
 
 import java.util.ArrayList;
 
-public class Stacking {
+public class Stacking { //stack = kolekce
     public static void main(String[] args) {
         ArrayStack stack = new ArrayStack(5);
         stack.push(8);
@@ -57,5 +57,30 @@ class ArrayStack {  //reprezentuje vlastní kolekci
             return data[freeIndex-1];
         }
         return -1;
+    }
+}
+
+class Link{
+    int data;
+    Link next;  //kdo je další
+}
+
+class LinkStack{
+    Link top;   //pamatuju si jenom vrchol zásobníku, jedu dokud mam next
+
+    LinkStack(){
+        top = null;
+    }
+
+    void push(int toAdd){
+
+    }
+
+    int pop(){
+        return 0;
+    }
+
+    int peek(){
+        return top.data;
     }
 }
