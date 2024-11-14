@@ -3,7 +3,7 @@ package oopCollectingg;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
-public class Stacking { //stack = kolekce
+public class Stacking { //stack = kolekce, LIFO
     public static void main(String[] args) {
         ArrayStack stack = new ArrayStack(5);
         stack.push(8);
