@@ -85,3 +85,44 @@ class LinkingQueue<E>{
 
 
 }
+
+class ArrayQueue{
+    int[] array;
+    int first, count;
+
+    public ArrayQueue(int initialCapacity) {
+        this.array = new int[initialCapacity];
+        first = 0;
+        count = 0;
+    }
+
+
+    void enqueue(int toAdd){
+        array[(first+count) % array.length] = toAdd;
+        count++;
+    }
+
+    int dequeue(){
+        int toReturn = array[first];
+        if (count > 0){
+            first = (first + 1) % array.length; //šoupnu first na first index když je tam volno
+            count--;
+            return toReturn;
+
+        } else {
+            return -1;
+        }
+    }
+
+    int peek(){
+        if (count > 0){
+            return array[first];
+        }
+        else {
+            return -1;
+        }
+    }
+
+
+
+}
