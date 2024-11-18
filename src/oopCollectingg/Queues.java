@@ -124,5 +124,14 @@ class ArrayQueue{
     }
 
 
+    void expandArray(){
+        int[] newArray = new int[2 * array.length];
+        for (int i = 0; i < array.length; i++) {
+            newArray[i] = array[(first+1) % array.length];
+        }
+        array = newArray;
+        first = 0;
+    }
+
 
 }
