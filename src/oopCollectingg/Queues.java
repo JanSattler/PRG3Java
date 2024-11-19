@@ -47,39 +47,40 @@ class Player{
     }
 }
 
-class QLink<E>{
-    E data;
-    QLink<E> next;
+class QLink<E>{ //každy jednotlivý prvek v queue
+    E data; //objekt který tomu dam
+    QLink<E> next;  //odkaz na další prvek
 }
 
-class LinkingQueue<E>{
-    QLink<E> start;
-    QLink<E> end;
+class LinkingQueue<E>{  //slouží k implementaci samotné fronty, každý prvek (který má info o sobě a dalším prvku) se instancí QLink
+    QLink<E> start; //první prvek fronty
+    QLink<E> end;   //poslední prvek fronty
 
-    void enqueue(E data){
+    void enqueue(E data){   //přídá nový prvek na konec fronty
         QLink<E> newLink = new QLink<>();
+        newLink.data = data;    //vezme prvek který má být přidán
 
         if (start == null){ //queue je prázdná
             start = newLink;
             end = start;
         }
-        end.next = newLink;
-        end = newLink;
+        end.next = newLink; //přidá next prvku který je momentálně na konci, kdy ten next je ten novej prvek
+        end = newLink;  //přidá nový prvek na konec
     }
 
-    E peek(){
+    E peek(){   //nakoukne na prvek která je na začátku, neboli první co je na řadě
         if (start == null){
             throw new RuntimeException("Prazdna fronta");
         }
         return start.data;
     }
 
-    E dequeue(){
+    E dequeue(){    //vytáhne první prvek z fronty
         if (start == null){ //queue není prázdná
             return null;    //vyhodí ideálně chybu
         }
         E tmp = start.data;
-        start = start.next;
+        start = start.next; //na řadu jde druhý v řadě
         return tmp;
     }
 
