@@ -23,7 +23,7 @@ class Character {
     public void attack(Character opponent) {
         System.out.println(name + " attacks " + opponent.name + " for " + attack + " damage!");
         if (attack - opponent.armor <= 0){
-            opponent.health -= attack-(attack-1);
+            opponent.health -= attack-(attack/2);
         } else {
             opponent.health -= attack- opponent.armor;
         }
