@@ -7,11 +7,13 @@ class Character {
     String name;
     int health;
     int attack;
+    int armor;
 
-    public Character(String name, int health, int attack) {
+    public Character(String name, int health, int attack, int armor) {
         this.name = name;
         this.health = health;
         this.attack = attack;
+        this.armor = armor;
     }
 
     /**
@@ -20,7 +22,12 @@ class Character {
      */
     public void attack(Character opponent) {
         System.out.println(name + " attacks " + opponent.name + " for " + attack + " damage!");
-        opponent.health -= attack;
+        if (attack - opponent.armor <= 0){
+            opponent.health -= attack-(attack-1);
+        } else {
+            opponent.health -= attack- opponent.armor;
+        }
+
     }
 
     public boolean isAlive() {
@@ -40,13 +47,13 @@ public class RPGQueue {
 
         //Naplnit obe fronty postavami
 
-       team1.add(new Character("Warrior", 50, 10));
-       team1.add(new Character("Mage", 30, 15));
-       team1.add(new Character("Rogue", 40, 12));
-       team2.add(new Character("Goofy Bear", 55, 8));
-       team2.add(new Character("Spider", 15, 14));
-       team2.add(new Character("AnotherSpider", 15, 14));
-       team2.add(new Character("Wolf", 45, 10));
+       team1.add(new Character("Warrior", 50, 10, 5));
+       team1.add(new Character("Mage", 30, 15, 8));
+       team1.add(new Character("Rogue", 40, 12, 12));
+       team2.add(new Character("Goofy Bear", 55, 8, 3));
+       team2.add(new Character("Spider", 15, 14, 7));
+       team2.add(new Character("AnotherSpider", 15, 14, 9));
+       team2.add(new Character("Wolf", 45, 10, 4));
                //klasicka implementace by mela zvladnout vypis toString defaultne
        System.out.println("Starting Battle!");
        System.out.println("Team 1: " + team1);
