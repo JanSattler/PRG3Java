@@ -57,6 +57,7 @@ public class TimeManagement {   //přidělim tasky zaměstnancům podle jejich f
                 System.out.println(top.name + "could not finish task "+currentTask.taskName);
                 employees.poll();
             }
+            System.out.println(employees);
         }
     }
 }
