@@ -16,6 +16,8 @@ public class Listing {
         stillNumbers.add(2);
         stillNumbers.add(8);
         stillNumbers.add(3);
+        stillNumbers.add(1);
+        stillNumbers.add(9);
         numbers.addAll(stillNumbers);
         System.out.println(numbers);
 
@@ -27,5 +29,14 @@ public class Listing {
         yetStillNumbers.add(10);
         numbers.remove(yetStillNumbers);
 
+
+        System.out.println(numbers.get(5));
+
+        System.out.println(numbers.contains(6));
+        System.out.println(numbers.indexOf(5));
+        System.out.println(numbers.lastIndexOf(5));
+
+        numbers.add(4, 20);
+        numbers.set(4, 20); //mění, nešoupe
     }
 }
