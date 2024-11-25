@@ -30,7 +30,28 @@ public class Setting {  //nějaká množina tam je jednou nebo vůbec
         //zkus pridat, nevyjde=už to tam je
         System.out.println(uniqueNumbers.add(6));
 
-        ArrayList<Integer> trulyUniqueNumbers = new ArrayList<>();
+        ArrayList<Integer> trulyUniqueNumbers = new ArrayList<>(uniqueNumbers);
+        System.out.println(trulyUniqueNumbers);
 
+
+
+        //task
+        //1) vytvoř arraylist, random čísla (0-199)
+        //2) zjisti kolik jich bylo unique
+
+        ArrayList<Integer> subSetNumbers = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            subSetNumbers.add((int)(Math.random()*200));
+        }
+        System.out.println(subSetNumbers);
+
+
+        HashSet<Integer> subSet = new HashSet<>(subSetNumbers);
+        System.out.println(subSet);
+        //kolik čísel je unique
+        System.out.println(subSet.size());
+
+        //kolik je tam non-unique čísel
+        System.out.println(subSetNumbers.size()-subSet.size());
     }
 }
