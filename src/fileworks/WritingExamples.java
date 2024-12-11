@@ -2,6 +2,7 @@ package fileworks;
 
 import fileworks.DataExport;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -22,5 +23,14 @@ public class WritingExamples {
             fw.write("\n"); //jiank vše napíše do jednoho řádku
         }
         fw.close();
+
+        //BufferedReader/Writer - po řádcích
+        BufferedWriter bw = new BufferedWriter(new FileWriter("output3.txt"));
+        for (int i = 0; i < 1000; i++) {
+            bw.write(String.valueOf((int)(Math.random()*4001)));
+            bw.newLine();
+        }
+        bw.flush(); //alternativa pro close pokud buffer ještě budu potřebovat, vlastně ten buffer jeom vyprázdnim ale nezavřu
+        bw.close();
     }
 }
