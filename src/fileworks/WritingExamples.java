@@ -25,7 +25,7 @@ public class WritingExamples {
         fw.close();
 
         //BufferedReader/Writer - po řádcích
-        BufferedWriter bw = new BufferedWriter(new FileWriter("output3.txt"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("output3.txt"), 4096);    //size (SZ) = velikost bufferu
         for (int i = 0; i < 1000; i++) {
             bw.write(String.valueOf((int)(Math.random()*4001)));
             bw.newLine();
