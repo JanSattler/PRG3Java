@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ciphering {
+
+
     public static void main(String[] args) throws IOException {
         Caesar cipher = new Caesar(3, "Caesar cipher");
         List<String> lines = Files.readAllLines(Paths.get("inputs\\cipherText.txt"));
@@ -57,11 +59,29 @@ class Caesar extends Cipher{
 
     @Override
     String encrypt(String input) {
-        return null;
+        String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+        char znak;
+        int znakIndex;
+        StringBuilder encrypted = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            znak = input.charAt(i);
+            znakIndex = ALPHABET.indexOf(znak);
+            encrypted.append(ALPHABET.charAt(znakIndex + this.key));
+        }
+        return encrypted.toString();
     }
 
     @Override
     String decrpyt(String encryptedInput) {
-        return null;
+        String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+        char znak;
+        int znakIndex;
+        StringBuilder dencrypted = new StringBuilder();
+        for (int i = 0; i < encryptedInput.length(); i++) {
+            znak = encryptedInput.charAt(i);
+            znakIndex = ALPHABET.indexOf(znak);
+            dencrypted.append(ALPHABET.charAt(znakIndex - this.key));
+        }
+        return dencrypted.toString();
     }
 }
