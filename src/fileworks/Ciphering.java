@@ -1,6 +1,6 @@
 package fileworks;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +14,20 @@ public class Ciphering {
         ArrayList<String> encryptedLines = new ArrayList<>();
         for (String line : lines){
             encryptedLines.add(cipher.encrypt(line));
+        }
+
+        System.out.println(encryptedLines);
+
+        //nahazet do souboru:
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(new File("outputs\\encryptedText.txt"))));
+        for (String line : encryptedLines) {
+            pw.println(line);
+        }
+        pw.close();
+
+        lines = Files.readAllLines(Paths.get("outputs\\encryptedText.txt"));
+        for (String line : lines){
+            System.out.println(cipher.decrpyt(line));
         }
     }
 }
