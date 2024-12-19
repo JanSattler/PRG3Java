@@ -7,9 +7,6 @@ public class test {
     public static void main(String[] args) {
         DataImport di = new DataImport("inputs.txt");
         DataExport de = new DataExport("outputs.txt");
-        System.out.println("čus asasdasdasa");
-        int kok = 2;
-        System.o
 
         String line;
         String[] params;
