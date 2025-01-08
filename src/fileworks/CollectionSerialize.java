@@ -1,13 +1,11 @@
 package fileworks;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CollectionSerialize {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ArrayList<Coordinates> coordinates = new ArrayList<>();
         coordinates.add(new Coordinates(15,16,19));
         coordinates.add(new Coordinates(50,122,18));
@@ -18,5 +16,12 @@ public class CollectionSerialize {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("coordiatesArrayList.ser"));
         oos.writeObject(coordinates);
         oos.close();
+
+        List<Coordinates> deserializedCoordinates = null;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("coordinatesArrayList.ser"));
+        deserializedCoordinates = (List<Coordinates>) ois.readObject();
+        ois.close();
+        System.out.println(deserializedCoordinates);
+        System.out.println(deserializedCoordinates.size() == coordinates.size());
     }
 }
