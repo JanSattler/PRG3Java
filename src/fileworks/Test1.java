@@ -26,12 +26,15 @@ public class Test1 {
             txts.sort(BY_SIZE);
             StringBuilder name = new StringBuilder(" ");
             StringBuilder line = new StringBuilder(" ");
+            String filename;
             for (File file : txts){
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
                 line.append(bufferedReader.readLine()+"\n");
-                name.append(file.getName());
+                filename = file.getName();
+                name.append(filename.substring(0,filename.length()-4));
                 name.append("-");
             }
+            name.delete(name.length()-1,name.length());
 
             BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\"+name+".txt"));
             bw.write(String.valueOf(line));
