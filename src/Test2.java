@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -24,7 +22,8 @@ public class Test2 {
     public static void main(String[] args) throws IOException {
         List<String> users = Files.readAllLines(Paths.get("inputs\\logins\\data\\usernames.txt"));
         List<String> PINS = Files.readAllLines(Paths.get("inputs\\logins\\data\\AllPINs.txt"));
-
+        int allValid = 0;
+        BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\validLogins.txt"));
 
         for (int i = 1; i < 6; i++) {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("inputs\\logins\\data\\attempts_"+i+".txt"));
@@ -38,7 +37,9 @@ public class Test2 {
                 for (int j = 0; j < users.size(); j++) {
                     if (users.get(j).equals(params[0])) {
                         if (j == Integer.parseInt(params[1])){
+                            bw.write(line+"\n");
                             valid++;
+                            allValid++;
                         }
                         break;
                     }
@@ -47,5 +48,8 @@ public class Test2 {
             System.out.println(i+": "+valid);
             bufferedReader.close();
         }
+        bw.close();
+        double allValid2 = (double) allValid /users.size();
+        System.out.println(allValid2*100+"%");
     }
 }
