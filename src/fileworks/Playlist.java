@@ -37,15 +37,22 @@ public class Playlist implements Serializable {
      */
     public Playlist(String name){
         this.name = name;
-        this.programme = new ArrayList<>;
+        this.programme = new ArrayList<>();
     }
 
 
-    @Override
-    public void toString(){
+
         //Vypise ve formatu: PlaylistName (doba trvani ve formatu mm:ss):
         //
         //                      movie1.toString()...
+
+
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "programme=" + programme +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     /**
@@ -57,7 +64,7 @@ public class Playlist implements Serializable {
     }
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("inputs\\MoviePractise.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("inputs\\MoviesPractice.txt"));
         Movie movie;
         ArrayList<Movie> movies = new ArrayList<>();
         for (String line : lines){
@@ -65,5 +72,6 @@ public class Playlist implements Serializable {
             movie = new Movie(params[0], Integer.parseInt(params[1]), Double.parseDouble(params[2]), Integer.parseInt(params[3]));
             movies.add(movie);
         }
+        System.out.println(movies);
     }
 }
