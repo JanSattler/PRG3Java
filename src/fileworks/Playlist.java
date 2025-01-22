@@ -1,7 +1,6 @@
 package fileworks;
-
-import java.io.IOException;
-import java.io.Serializable;
+//https://gist.github.com/HonzaBoh/a0cd33af3368749590f82b286d0eb685#file-moviespractice-txt
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class Playlist implements Serializable {
         return 0;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         List<String> lines = Files.readAllLines(Paths.get("inputs\\MoviesPractice.txt"));
         Movie movie;
         ArrayList<Movie> movies = new ArrayList<>();
@@ -73,5 +72,31 @@ public class Playlist implements Serializable {
             movies.add(movie);
         }
         System.out.println(movies);
+
+        //pokusí se najít lists, jestli nenajde, udělá vlastní playlist
+        File file = new File("lists.ser");
+        if (!file.exists()){
+            List<Movie> setOfMovies = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                int movieIndex = (int) (Math.random() * movies.size()-1);
+                if (!setOfMovies.contains(movies.get(movieIndex))){
+                    setOfMovies.add(movies.get(movieIndex));
+                }
+            }
+            Playlist playlist = new Playlist(setOfMovies, "default");
+            System.out.println(playlist.programme);
+
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("lists.ser"));
+            oos.writeObject(playlist);
+            oos.close();
+        } else {
+            System.out.println("gut");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("lists.ser"));
+            Playlist deserialized;
+            deserialized = (Playlist) ois.readObject();
+
+            System.out.println("Importovano: "+deserialized);
+        }
+
     }
 }
