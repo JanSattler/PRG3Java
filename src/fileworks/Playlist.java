@@ -10,6 +10,8 @@ import java.util.List;
  * Kolekce vsech filmu v playlistu
  */
 public class Playlist implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 42L;
 
     /**
      * Kolekce vsech filmu v playlistu
@@ -76,6 +78,7 @@ public class Playlist implements Serializable {
         //pokusí se najít lists, jestli nenajde, udělá vlastní playlist
         File file = new File("lists.ser");
         if (!file.exists()){
+            System.out.println("nah");
             List<Movie> setOfMovies = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
                 int movieIndex = (int) (Math.random() * movies.size()-1);
@@ -91,8 +94,8 @@ public class Playlist implements Serializable {
             oos.close();
         } else {
             System.out.println("gut");
+            Playlist deserialized = null;
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("lists.ser"));
-            Playlist deserialized;
             deserialized = (Playlist) ois.readObject();
 
             System.out.println("Importovano: "+deserialized);
