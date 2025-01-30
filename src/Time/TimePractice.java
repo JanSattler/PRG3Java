@@ -32,5 +32,7 @@ public class TimePractice {
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
         System.out.println(LocalDateTime.of(2025,1,31,2,50));
+
+
     }
 }
