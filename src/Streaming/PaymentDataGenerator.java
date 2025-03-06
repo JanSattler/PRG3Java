@@ -60,5 +60,35 @@ public class PaymentDataGenerator {
     public static void main(String[] args) {
         List<Payment> payments = Payment.generateSamplePayments(100);
         payments.forEach(System.out::println);
+
+        //vypsat vsechny completed platby
+        System.out.println("vypsat vsechny completed platby");
+        payments.stream()
+                .filter(payment -> payment.getStatus().equals("Completed"))
+                .forEach(System.out::println);
+
+        //vypsat veschny platby ve vysi alespon 200 a seradit dle data
+        System.out.println("vypsat veschny platby ve vysi alespon 200 a seradit dle data");
+        payments.stream()
+                .filter(payment -> payment.getAmount() >= 200)
+                .sorted(Comparator.comparing(Payment::getTransactionDate))
+                .forEach(System.out::println);
+
+        //vypsat prumernou vysi platby od uzivatele 003
+        System.out.println("vypsat prumernou vysi platby od uzivatele 003");
+        double avgBruh = payments.stream()
+                .filter(payment -> payment.getUserId().equals("U003"))
+                .mapToDouble(payment -> payment.getAmount())
+                .average()
+                .orElse(0);
+        System.out.println(avgBruh);
+
+        //vypsat celkovy pocet plateb od 003
+
+        //vypsat celkovy soucet vsech plateb v kategorii entertainment
+        //vypsat celkovou sumu ktera je pending za posledni tyden
     }
+
+
+
 }
