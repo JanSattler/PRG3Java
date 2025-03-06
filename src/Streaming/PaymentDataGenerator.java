@@ -84,8 +84,16 @@ public class PaymentDataGenerator {
         System.out.println(avgBruh);
 
         //vypsat celkovy pocet plateb od 003
+        System.out.println("vypsat celkovy pocet plateb od 003");
+        System.out.println(payments.stream()
+                .filter(payment -> payment.getUserId().equals("U003"))
+                .count());
 
         //vypsat celkovy soucet vsech plateb v kategorii entertainment
+        System.out.println(
+                payments.stream()
+                        .filter(p -> )
+        );
         //vypsat celkovou sumu ktera je pending za posledni tyden
     }
 
