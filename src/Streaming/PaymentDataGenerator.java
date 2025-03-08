@@ -1,3 +1,5 @@
+package Streaming;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -90,11 +92,20 @@ public class PaymentDataGenerator {
                 .count());
 
         //vypsat celkovy soucet vsech plateb v kategorii entertainment
+        System.out.println("vypsat celkovy soucet vsech plateb v kategorii entertainment");
         System.out.println(
                 payments.stream()
-                        .filter(p -> )
+                        .filter(payment -> payment.getCategory().equals("Entertainment"))
+                        .count()
         );
         //vypsat celkovou sumu ktera je pending za posledni tyden
+        System.out.println(
+                payments.stream()
+                        .filter(payment -> payment.getStatus().equals("Pending"))
+                        .filter(payment -> payment.getTransactionDate().isAfter(LocalDateTime.now().minusDays(7)))
+                        .mapToDouble(Payment::getAmount)        //vezme amount z každé platby, Pro každý objekt třídy Payment zavolej metodu getAmount() a vrať její výsledek.
+                        .sum()
+        );
     }
 
 
