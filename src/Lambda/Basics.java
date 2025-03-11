@@ -20,6 +20,9 @@ public class Basics {
         Operations addition = (a, b) -> a+b;
         Operations multiplication = (a, b) -> a*b;
 
+        System.out.println("addition");
+        System.out.println(addition.operation(5, 2));
+
         Texting world = whom -> System.out.println("Hello "+ whom);
         world.hello("World");
 
