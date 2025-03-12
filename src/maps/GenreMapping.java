@@ -42,6 +42,8 @@ public class GenreMapping {
             }
         }
 
+
+
         for (String genre : genreMap.keySet()) {
             System.out.println(genre + ":");
             for (Movie movie : genreMap.get(genre)) {
