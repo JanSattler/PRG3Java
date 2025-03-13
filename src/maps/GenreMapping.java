@@ -54,9 +54,12 @@ public class GenreMapping {
         }
 
         //mapa zanr - seznam nazvu filmu
+        Map<String, List<String>> alt = movies.stream()
+                .collect(Collectors.groupingBy(Movie::getGenre,
+                        Collectors.mapping(Movie::getName, Collectors.toList())));
 
         //zjednodušený kod pro vytvoření naplnění HashMap genreMap -> mapa zanr - filmy jako celek
-        Map<String, List<Movie>> alt = movies.stream()
+        Map<String, List<Movie>> alsoAnother = movies.stream()
                 .collect(Collectors.groupingBy(Movie::getGenre));
 
         for(String genre : genreMap.keySet()) {
@@ -72,6 +75,23 @@ public class GenreMapping {
         Map<String, Double> avgRatingGenre = movies.stream()
                 .collect(Collectors.groupingBy(Movie::getGenre, Collectors.averagingDouble(Movie::getRating)));
         System.out.println(avgRatingGenre);
+
+        //ekvivalentni postup
+        //na gitu
+
+
+        Map<String, List<Movie>> ratingCategories = movies.stream()
+                .collect(Collectors.groupingBy(
+                        movie -> {
+                            if (movie.getRating() < 5){
+                                return "Bad";
+                            } else if (movie.getRating() < 7.5) {
+                                return "Good";
+                            } else {
+                                return "Great";
+                            }
+                        }
+                ));
     }
 }
 
