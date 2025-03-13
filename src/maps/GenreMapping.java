@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GenreMapping {
 
@@ -50,6 +52,26 @@ public class GenreMapping {
                 System.out.println("|-" + movie);
             }
         }
+
+        //mapa zanr - seznam nazvu filmu
+
+        //zjednodušený kod pro vytvoření naplnění HashMap genreMap -> mapa zanr - filmy jako celek
+        Map<String, List<Movie>> alt = movies.stream()
+                .collect(Collectors.groupingBy(Movie::getGenre));
+
+        for(String genre : genreMap.keySet()) {
+            System.out.println("Genre: ");
+            double average = genreMap.get(genre).stream()
+                    .mapToDouble(Movie::getRating)
+                    .average()
+                    .orElse(0);
+            System.out.println("Average: " + average);
+        }
+
+        //nebo
+        Map<String, Double> avgRatingGenre = movies.stream()
+                .collect(Collectors.groupingBy(Movie::getGenre, Collectors.averagingDouble(Movie::getRating)));
+        System.out.println(avgRatingGenre);
     }
 }
 
