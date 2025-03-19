@@ -124,6 +124,20 @@ public class PaymentDataGenerator {
 
         System.out.println("----------------------------------------");
         System.out.println("top 3: " + topSpendingUsers);
+
+
+        //nejpopulárnější platební metoda uživatelů kteří utratí aplespoň 200
+        String mostPopularPaymentMetohd = payments.stream()
+                .filter(payment -> payment.getAmount() >= 200)
+                .collect(Collectors.groupingBy(Payment::getPaymentMethod, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("NELZE URČIT");
+
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.println(mostPopularPaymentMetohd);
+
     }
 
 
