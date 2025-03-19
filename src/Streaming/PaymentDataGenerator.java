@@ -1,5 +1,6 @@
 package Streaming;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -137,6 +138,17 @@ public class PaymentDataGenerator {
 
         System.out.println("-----------------------------------------------------------------------");
         System.out.println(mostPopularPaymentMetohd);
+
+
+        //vlastni kategorie: dnes, v tydnu, posledni mesic
+        LocalDate today = LocalDate.now();
+        Map<String, List<Payment>> timePayments = payments.stream()
+                .collect(Collectors.groupingBy(payment -> {
+                    LocalDate dateOfTransaction = payment.getTransactionDate().toLocalDate();
+                    if (dateOfTransaction.isEqual(today)){
+                        return "today";
+                    }
+                }))
 
     }
 
