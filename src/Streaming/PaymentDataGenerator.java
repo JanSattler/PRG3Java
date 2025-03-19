@@ -106,6 +106,24 @@ public class PaymentDataGenerator {
                         .mapToDouble(Payment::getAmount)        //vezme amount z každé platby, Pro každý objekt třídy Payment zavolej metodu getAmount() a vrať její výsledek.
                         .sum()
         );
+
+        //statistiky k platbám
+        //na gitu
+
+
+        //Top 3 uživatelé dle útraty
+        Map<String, Double> topSpendingUsers = payments.stream()
+                .collect(Collectors.groupingBy(
+                        Payment::getUserId,
+                        Collectors.summingDouble(Payment::getAmount)
+                ))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .limit(3)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        System.out.println("----------------------------------------");
+        System.out.println("top 3: " + topSpendingUsers);
     }
 
 
