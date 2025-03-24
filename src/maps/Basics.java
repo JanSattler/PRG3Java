@@ -29,12 +29,12 @@ public class Basics {
         System.out.println(countries.containsKey("France"));
         System.out.println(countries.containsValue("Prague"));
 
-        for (String country : countries.keySet()) { //co je keyset??
+        for (String country : countries.keySet()) { //co je keyset?? -> vrátí všechny klíče v dané map
             System.out.println(country);
             System.out.println("Capital: " + countries.get(country));
         }
 
-        for (Map.Entry<String, String> entry : countries.entrySet()) {  //Map.Entry??
+        for (Map.Entry<String, String> entry : countries.entrySet()) {  //Map.Entry?? -> třída která je vlastně ten jeden konkrétní záznam z Map (kde v Map jsou všechny záznamy)
             System.out.println("Country: " + entry.getKey() + ", Capital: " + entry.getValue());
         }
 
