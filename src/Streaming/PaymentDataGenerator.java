@@ -146,9 +146,15 @@ public class PaymentDataGenerator {
                 .collect(Collectors.groupingBy(payment -> {
                     LocalDate dateOfTransaction = payment.getTransactionDate().toLocalDate();
                     if (dateOfTransaction.isEqual(today)){
-                        return "today";
+                        return "Today";
+                    } else if(dateOfTransaction.isAfter(today.minusDays(7))){
+                        return "Week";
+                    } else if (dateOfTransaction.isAfter(today.minusDays(30))) {
+                        return "Month";
+                    } else {
+                        return "Older";
                     }
-                }))
+                }));
 
     }
 

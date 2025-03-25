@@ -109,9 +109,12 @@ public class MovieReviewsGit {
         long start = System.currentTimeMillis();
         Map<Integer, List<Double>> ratingsMap = ratings.stream()
                 .collect(Collectors.groupingBy(
-                        Rating::getMovieID,
-                        Collectors.mapping(Rating::getRating, Collectors.toList())
+                        Rating::getMovieID, //seskupí podle MovieId
+                        Collectors.mapping(Rating::getRating, Collectors.toList()) //ke každýmu MovieId dá list ratingů toho filmu
                 ));
+
+        System.out.println("rating map: ");
+        System.out.println(ratingsMap);
 
         movies.forEach(movie -> {
             List<Double> movieRatings = ratingsMap.get(movie.getMovieID());
