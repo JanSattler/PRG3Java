@@ -60,7 +60,7 @@ public class GenreMapping {
 
         //zjednodušený kod pro vytvoření naplnění HashMap genreMap -> mapa zanr - filmy jako celek
         Map<String, List<Movie>> alsoAnother = movies.stream()
-                .collect(Collectors.groupingBy(Movie::getGenre));
+                .collect(Collectors.groupingBy(Movie::getGenre)); //rozdělí filmy do skupin podle žánru, u každého žádndu bude list objektů Movie
 
         for(String genre : genreMap.keySet()) {
             System.out.println("Genre: ");
@@ -73,7 +73,7 @@ public class GenreMapping {
 
         //nebo
         Map<String, Double> avgRatingGenre = movies.stream()
-                .collect(Collectors.groupingBy(Movie::getGenre, Collectors.averagingDouble(Movie::getRating)));
+                .collect(Collectors.groupingBy(Movie::getGenre, Collectors.averagingDouble(Movie::getRating))); //Rozdělí průměrný rating podle žánru, u každého ážnru bude jeho avg rating
         System.out.println(avgRatingGenre);
 
         //ekvivalentni postup
