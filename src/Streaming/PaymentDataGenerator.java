@@ -142,13 +142,13 @@ public class PaymentDataGenerator {
 
         //vlastni kategorie: dnes, v tydnu, posledni mesic
         LocalDate today = LocalDate.now();
-        Map<String, List<Payment>> timePayments = payments.stream()
-                .collect(Collectors.groupingBy(payment -> {
-                    LocalDate dateOfTransaction = payment.getTransactionDate().toLocalDate();
-                    if (dateOfTransaction.isEqual(today)){
-                        return "today";
-                    }
-                }))
+        //Map<String, List<Payment>> timePayments = payments.stream()
+        //        .collect(Collectors.groupingBy(payment -> {
+        //            LocalDate dateOfTransaction = payment.getTransactionDate().toLocalDate();
+        //            if (dateOfTransaction.isEqual(today)){
+        //                return "today";
+        //            }
+        //        }))
 
     }
 
