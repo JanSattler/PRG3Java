@@ -5,8 +5,26 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SeriesMaps {
+
+    static void printStructure(List<Series> series){
+        series.forEach(s -> {
+            System.out.println(s.getTitle());
+
+            Map<Integer, List<Episode>> seasonsMap = s.getEpisodes().stream()
+                    .collect(Collectors.groupingBy(Episode::getSeason));
+
+            seasonsMap.forEach((season, episode) -> {
+                System.out.println("\tS:"+season);
+                episode.forEach(e -> System.out.println("\t\t"+e.toString()));
+            });
+
+        });
+    }
+
     public static void main(String[] args) throws IOException {
         List<Series> seriesList = Files.lines(Paths.get("inputs\\series.csv"))  //už vrací stream
                 .skip(1)
@@ -17,7 +35,7 @@ public class SeriesMaps {
                 ))
                 .toList();
 
-        List<Episode> episodes = Files.lines(Paths.get("inputs\\episodes.csv"))
+        List<Episode> episodeList = Files.lines(Paths.get("inputs\\episodes.csv"))
                 .skip(1)
                 .map(line -> line.split(";"))
                 .map(parts -> new Episode(
@@ -27,6 +45,18 @@ public class SeriesMaps {
                         parts[3]
                 ))
                 .toList();
+
+
+        seriesList.forEach(series -> {  //forEach už zajebe stream sám
+            episodeList.stream()
+                    .filter(episode -> episode.getEpisodeID().equals(series.getSeriesID()))
+                    .forEach(series::addEpisode);
+        });
+
+        System.out.println(seriesList);
+
+        //výpis v tree podobě
+
     }
 }
 
@@ -40,6 +70,8 @@ class Series {
         this.title = title;
         this.episodes = new ArrayList<>();
     }
+
+
 
     void addEpisode(Episode e) {
         this.episodes.add(e);
@@ -58,7 +90,7 @@ class Series {
     }
 }
 class Episode {
-    String episodeID;
+    String episodeID;   //ono je to spíš id toho seroše ke kterymu to patri
     int episodeNumber;
     double rating;
     int season;
@@ -70,6 +102,11 @@ class Episode {
         this.season = season;
     }
 
+
+    @Override
+    public String toString() {
+        return "S:"+getSeason() + "E"+getEpisodeNumber();
+    }
     public String getEpisodeID() {
         return episodeID;
     }
