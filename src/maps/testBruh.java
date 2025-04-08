@@ -56,15 +56,15 @@ public class testBruh {
 
 
 
-        Map<String, List<String>> scoreCategories = students.stream()
-                .map(s -> s.getName())
-                .collect(Collectors.groupingBy(
-                        student -> {
-                            if (stude ){
-
-                            }
-                        }
-                ));
+        //Map<String, List<String>> scoreCategories = students.stream()
+          //      .map(s -> s.getName())
+            //    .collect(Collectors.groupingBy(
+              //          student -> {
+                //            if (stude ){
+//
+   //                          }
+     //                   }
+       //         ));
 
 
 

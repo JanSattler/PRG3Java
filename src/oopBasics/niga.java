@@ -7,6 +7,21 @@ public class niga {
         double x = 1.12;
         double y = 5.87;
         Coordinates coordinates = new Coordinates(x,y);
+
+        System.out.println("pico seru na to ooooo");
+
+        Test more = new Test("bruh", 5);
+        System.out.println(more.kokot + ": " + more.pico);
+    }
+}
+
+class Test {
+    String pico;
+    int kokot;
+
+    public Test(String pico, int kokot) {
+        this.pico = pico;
+        this.kokot = kokot;
     }
 }
 
