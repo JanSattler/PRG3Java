@@ -69,6 +69,7 @@ public class testBruh {
         //správný řešení
         Map<String, List<String>> scoreCategories = students.stream()
                 .map(Student::getName)
+                .distinct()
                 .collect(Collectors.groupingBy(
                         name -> {
                             double avg = getAverageScore(students, name);
@@ -79,6 +80,7 @@ public class testBruh {
                         },
                         Collectors.toList()
                 ));
+        System.out.println(scoreCategories);
 
 
 
