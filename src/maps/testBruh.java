@@ -66,6 +66,20 @@ public class testBruh {
      //                   }
        //         ));
 
+        //správný řešení
+        Map<String, List<String>> scoreCategories = students.stream()
+                .map(Student::getName)
+                .collect(Collectors.groupingBy(
+                        name -> {
+                            double avg = getAverageScore(students, name);
+                            if (avg >= 85) return "Best";
+                            if (avg >= 65) return "Good";
+                            return "Avegrage";
+
+                        },
+                        Collectors.toList()
+                ));
+
 
 
     }
