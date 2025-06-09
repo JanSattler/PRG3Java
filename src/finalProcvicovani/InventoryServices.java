@@ -2,6 +2,7 @@ package finalProcvicovani;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InventoryServices {
 
@@ -29,7 +30,8 @@ public class InventoryServices {
      * @return prumerna cena za jednotku napric prodeji
      */
     static double getAverageUnitSale(){
-        return 0;
+        return MainHub.sales.stream()
+                .collect(Collectors.averagingDouble(Sale::getUnitPrice));
     }
 
     /**
@@ -38,7 +40,10 @@ public class InventoryServices {
      * @return pocet kusu (quantity) produktu, ktere jsou celkem v predane kategorii
      */
     static int getTotalAmount(String category){
-        return 0;
+        return MainHub.products.stream()
+                .filter(product -> product.getCategory().equals(category))
+                .mapToInt(p -> p.getQuantity())
+                .sum();
     }
 
     /**
@@ -47,7 +52,10 @@ public class InventoryServices {
      * @param category kategorie produktu
      */
     static void printTopQuantity(String category){
-
+        MainHub.products.stream()
+                .filter(product -> product.getCategory().equals(category))
+                .mapToInt(p -> p.getQuantity())
+                .collect(Collectors.c);
     }
 
     /**

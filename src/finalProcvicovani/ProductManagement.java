@@ -91,6 +91,14 @@ class BasicProduct implements Product, Comparable<BasicProduct>{
         return quantity;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public void printProductInfo() {
         System.out.println("Product: " + name);
