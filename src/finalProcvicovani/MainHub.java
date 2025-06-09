@@ -1,12 +1,14 @@
 package finalProcvicovani;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainHub {
-    public static ArrayList<Object> sales;
+    public static List<Sale> sales;
     static List<BasicProduct> products;
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        ProductManagement.init();
+        DataLoad.init();
     }
 }

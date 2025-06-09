@@ -43,16 +43,25 @@ public class DataLoad {
             }
         }
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\cleanSales.txt"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\cleanData.txt"));
         bw.write(String.valueOf(cleanSales));
         bw.newLine();
         bw.close();
     }
 
-    static void loadSales(String path){
+    static void loadSales(String path) throws IOException {
         //kdyby tam neco bylo, tak to vynulujeme
         MainHub.sales = new ArrayList<>();
         //Sem nyni pridavejte nove Sales, ktere nactete
+        MainHub.sales = Files.lines(Paths.get("inputs\\finalProcvicovani\\products.txt"))
+                .map(line -> line.split(","))
+                .map(params -> new Sale(
+                        params[0],
+                        params[1],
+                        Integer.parseInt(params[2]),
+                        Double.parseDouble(params[3])
+                ))
+                .toList();
 
     }
 
@@ -61,14 +70,14 @@ public class DataLoad {
      * Metoda, ktera otestuje spravnost vaseho reseni, pokud odkomentovany kod
      * funguje dle zadani, mate ukol splneny.
      */
-    static void init(){
+    static void init() throws IOException {
         //otestovani, zda se nacetlo spravne mozstvi vseho:
-//        loadProducts("products.txt");
-//        cleanSales("...");
-//        loadSales("cleanData.txt");
+        loadProducts("inputs\\finalProcvicovani\\products.txt");
+        cleanSales("inputs\\finalProcvicovani");
+        loadSales("inputs\\finalProcvicovani\\cleanData.txt");
         //Produktu je 50 a prodeju 300
-//        System.out.println("Loaded Products: " + MainHub.products.size());
-//        System.out.println("Loaded sales: " + MainHub.sales.size());
+        System.out.println("Loaded Products: " + MainHub.products.size());
+        System.out.println("Loaded sales: " + MainHub.sales.size());
     }
 }
 
@@ -90,6 +99,22 @@ class Sale {
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
     }
 }
 

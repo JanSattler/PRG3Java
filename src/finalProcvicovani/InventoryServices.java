@@ -1,5 +1,6 @@
 package finalProcvicovani;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class InventoryServices {
@@ -18,7 +19,9 @@ public class InventoryServices {
      * @return pocet, kolik prodeju (price * quantity) bylo >= price
      */
     static long getSalesCount(double price){
-        return 0;
+        return MainHub.sales.stream()
+                .filter(sale -> sale.getUnitPrice() * sale.getQuantity() >= price)
+                .count();
     }
 
     /**

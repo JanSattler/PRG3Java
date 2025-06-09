@@ -1,6 +1,9 @@
 package finalProcvicovani;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,18 +26,18 @@ public class ProductManagement {
         products.add(charger);
 
         //doopravdy implementuje interface Product?
-//        Product bundle = new BundleProduct(products);
+        Product bundle = new BundleProduct(products, "bruh");
         //jak pocita cenu? Melo by vyjit 15.5+15.5+6.49
-//        System.out.println(bundle.getPrice());
+        System.out.println(bundle.getPrice());
         //ziska spravne dostupny pocet kusu? mel by napsat 305
-//        System.out.println(bundle.getQuantity());
+        System.out.println(bundle.getQuantity());
         //jak je formatovany vystup?
-//        bundle.printProductInfo();
+        bundle.printProductInfo();
 
         //Implementovali jste pro BasicProduct defaultni razeni spravne?
-//        System.out.println(products);
-//        Collections.sort(products);
-//        System.out.println(products);
+        System.out.println(products);
+        Collections.sort(products);
+        System.out.println(products);
     }
 
 }
@@ -65,7 +68,7 @@ interface Product {
 /**
  * Trida reprezentujici prosty produkt
  */
-class BasicProduct implements Product{
+class BasicProduct implements Product, Comparable<BasicProduct>{
     String name;
     String category;
     int quantity;
@@ -96,6 +99,13 @@ class BasicProduct implements Product{
     }
 
     @Override
+    public int compareTo(BasicProduct other) {
+        double thisValue = this.getPrice() * this.getQuantity();
+        double otherValue = other.price * other.quantity;
+        return Double.compare(thisValue, otherValue);
+    }
+
+    @Override
     public String toString() {
         return name + "[" + category + "]" + ", qty: " + quantity + ", unit price: " + price;
     }
@@ -106,6 +116,44 @@ class BasicProduct implements Product{
  * Blizsi specifikace tridy se nachazi v prilozenem pdf.
  * @implSpec rozhrani Product
  */
-class BundleProduct {
+class BundleProduct implements Product{
     List<BasicProduct> bundle;
+    String name;
+
+    public BundleProduct(List<BasicProduct> bundle, String name) {
+        this.bundle = bundle;
+        this.name = name;
+    }
+
+    @Override
+    public double getPrice() {
+        double price = 0;
+        for (BasicProduct product : bundle) {
+            price += product.getPrice();
+        }
+        return price;
+    }
+
+    @Override
+    public int getQuantity() {
+
+        int minQuantity = Integer.MAX_VALUE;
+        for (BasicProduct product : bundle) {
+            if (product.getQuantity() < minQuantity) {
+                minQuantity = product.getQuantity();
+            }
+        }
+        return minQuantity;
+    }
+
+    @Override
+    public void printProductInfo() {
+        System.out.println(this.name + "\t" + getPrice());
+        for (BasicProduct product : bundle) {
+            System.out.println(product.name + "\t" + product.getPrice());
+        }
+    }
+
+
+
 }
