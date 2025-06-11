@@ -51,12 +51,14 @@ public class InventoryServices {
      * Vypise do konzole top 5 produktu s nejvetsim poctem kusu v predane kategorii
      * @param category kategorie produktu
      */
-    static void printTopQuantity(String category){
-        MainHub.products.stream()
-                .filter(product -> product.getCategory().equals(category))
-                .mapToInt(p -> p.getQuantity())
-                .collect(Collectors.c);
-    }
+static void printTopQuantity(String category){
+    MainHub.products.stream()
+            .filter(product -> product.getCategory().equals(category))
+            .sorted(Comparator.comparingInt(Product::getQuantity).reversed())
+            .limit(5)
+            .forEach(System.out::println);
+}
+
 
     /**
      * Data: Products
@@ -64,9 +66,14 @@ public class InventoryServices {
      * @param category kategorie produktu
      * @param limit cenova hladina
      */
-    static void printCategoryByPrice(String category, double limit){
+static void printCategoryByPrice(String category, double limit){
+    long count = MainHub.products.stream()
+            .filter(product -> product.getCategory().equals(category))
+            .filter(product -> product.getUnitPrice() < limit)
+            .count();
+    System.out.println("Pocet produktu pod cenou " + limit + " v kategorii " + category + ": " + count);
+}
 
-    }
 
     /**
      * Data: Products
@@ -74,18 +81,25 @@ public class InventoryServices {
      * se v datech nachazi dle kategorie (String)
      * @return mapa, kde klic je kategorie, hodnota je pocet produktu v katalogu
      */
-    static Map<String, Long> getProducts(){
-        return null;
-    }
+static Map<String, Long> getProducts(){
+    return MainHub.products.stream()
+            .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+}
+
 
     /**
      * Data: Products
      * Spocita, kolik (Double) je prumerna cena produktu v kategorii (String)
      * @return mapa, kde klic je kategorie, hodnota je prumerna cena produktu v kategorii
      */
-    static Map<String, Long> getAvgProductPrice(){
-        return null;
-    }
+static Map<String, Double> getAvgProductPrice(){
+    return MainHub.products.stream()
+            .collect(Collectors.groupingBy(
+                    Product::getCategory,
+                    Collectors.averagingDouble(Product::getUnitPrice)
+            ));
+}
+
 
     /**
      * Zde odkomentovat pro zjisteni hodnot
