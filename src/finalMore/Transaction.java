@@ -6,19 +6,19 @@ public class Transaction {
     int toAccount;
     double amount;
 
-    public Transaction(String type, int fromAccount, int toAccount, double amount) {
+    public Transaction(String type, String fromAccount, String toAccount, double amount) {
         if (type.equals("transfer")) {
             this.type = type;
-            this.fromAccount = fromAccount;
-            this.toAccount = toAccount;
+            this.fromAccount = Integer.parseInt(fromAccount);
+            this.toAccount = Integer.parseInt(toAccount);
             this.amount = amount;
         } else if (type.equals("deposit")) {
             this.type = type;
-            this.toAccount = toAccount;
+            this.toAccount = Integer.parseInt(toAccount);
             this.amount = amount;
         } else {
             this.type = type;
-            this.fromAccount = fromAccount;
+            this.fromAccount = Integer.parseInt(fromAccount);
             this.amount = amount;
         }
 

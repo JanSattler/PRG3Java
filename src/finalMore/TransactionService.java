@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionService {
 
@@ -18,6 +19,7 @@ public class TransactionService {
     public static void loadAccounts(String filePath) {
         try {
             accounts = Files.lines(Paths.get(filePath))
+                    .skip(1)
                     .map(line -> line.split(";"))
                     .map(params -> new PersonalAccount(
                             Integer.parseInt(params[0]),
@@ -33,11 +35,12 @@ public class TransactionService {
     public static void loadTransactions(String filePath){
         try {
             transactions = Files.lines(Paths.get(filePath))
+                    .skip(1)
                     .map(line -> line.split(";"))
                     .map(params -> new Transaction(
                             params[0],
-                            Integer.parseInt(params[1]),
-                            Integer.parseInt(params[1]),
+                            params[1],
+                            params[2],
                             Double.parseDouble(params[3])
                     ))
                     .toList();
@@ -79,6 +82,21 @@ public class TransactionService {
             }
         }
     }
-    public static void printReport(){}
+    public static void printReport(){
+        System.out.println("Účtů registrováno: " + accounts.size());
+
+        double bankBalance = accounts.stream()
+                .mapToDouble(PersonalAccount::getBalance)
+                .sum();
+        System.out.println("Celkové množství peněz v bance: " + bankBalance);
+
+        System.out.println(
+                accounts.stream()
+                        .collect(Collectors.groupingBy(
+                                PersonalAccount::getOwner,
+                                Collectors.summingDouble(PersonalAccount::getBalance)))
+        );
+    }
+
 
 }
