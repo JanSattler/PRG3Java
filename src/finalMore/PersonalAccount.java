@@ -12,7 +12,7 @@ public class PersonalAccount implements Account{
     }
 
     @Override
-    public boolean withdraw(int amount) {
+    public boolean withdraw(double amount) {
         if (balance - amount >= 0) {
             balance -= amount;
             return true;
@@ -20,8 +20,16 @@ public class PersonalAccount implements Account{
         return false;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
     @Override
-    public void deposit(int amount) {
+    public void deposit(double amount) {
         balance += amount;
     }
 

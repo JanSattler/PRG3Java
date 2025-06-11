@@ -1,6 +1,8 @@
 package finalMore;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,8 +46,39 @@ public class TransactionService {
         }
     }
 
-    public static void transfer(Account from, Account to){}
-    public static void processTransactions(){}
+    public static boolean transfer(PersonalAccount from, PersonalAccount to, double amount){
+        if (from.withdraw(amount)) {
+            to.deposit(amount);
+            return true;
+        }
+        return false;
+    }
+    public static void processTransactions() throws IOException {
+        for (Transaction transaction : transactions) {
+            if (transaction.getType().equals("transfer")) {
+                PersonalAccount from = null;
+                PersonalAccount to = null;
+                for (PersonalAccount account : accounts) {
+                    if (transaction.getFromAccount() == account.getAccountId()) {
+                        from = account;
+                    } else if (transaction.getToAccount() == account.getAccountId()) {
+                        to = account;
+                    }
+                }
+                if (from == null || to == null) {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\invalids.txt"));
+                    bw.write(transaction.toString() + "  NONEXISTENT ACCOUNT");
+                    bw.newLine();
+                    bw.close();
+                } else if (!transfer(from, to, transaction.getAmount())) {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\invalids.txt"));
+                    bw.write(transaction.toString() + " INSUFFICIENT FUNDS");
+                    bw.newLine();
+                    bw.close();
+                }
+            }
+        }
+    }
     public static void printReport(){}
 
 }

@@ -2,7 +2,7 @@ package finalMore;
 
 public interface Account {
 
-    boolean withdraw(int amount);
-    void deposit(int amount);
+    boolean withdraw(double amount);
+    void deposit(double amount);
     double getBalance();
 }
