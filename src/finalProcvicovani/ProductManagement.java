@@ -63,6 +63,10 @@ interface Product {
      * Vypise zakladni specifikace produktu
      */
     void printProductInfo();
+
+    String getCategory();
+
+
 }
 
 /**
@@ -162,6 +166,10 @@ class BundleProduct implements Product{
         }
     }
 
+    @Override
+    public String getCategory() {
+        return null;
+    }
 
 
 }

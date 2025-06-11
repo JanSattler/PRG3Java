@@ -1,6 +1,7 @@
 package finalProcvicovani;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,7 @@ static void printTopQuantity(String category){
 static void printCategoryByPrice(String category, double limit){
     long count = MainHub.products.stream()
             .filter(product -> product.getCategory().equals(category))
-            .filter(product -> product.getUnitPrice() < limit)
+            .filter(product -> product.getPrice() < limit)
             .count();
     System.out.println("Pocet produktu pod cenou " + limit + " v kategorii " + category + ": " + count);
 }
@@ -96,7 +97,7 @@ static Map<String, Double> getAvgProductPrice(){
     return MainHub.products.stream()
             .collect(Collectors.groupingBy(
                     Product::getCategory,
-                    Collectors.averagingDouble(Product::getUnitPrice)
+                    Collectors.averagingDouble(Product::getPrice)
             ));
 }
 
