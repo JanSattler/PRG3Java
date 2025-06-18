@@ -64,7 +64,7 @@ public class PharmacyPractice {
                 newMed.add(order);
                 stockMedications.put(order.getMedicationName(), order.getPieces());
             } else {
-                stockMedications.en
+                stockMedications.get(order.getMedicationName()).add(order.getPieces());
             }
         }
 
