@@ -1,6 +1,6 @@
 package tretak.oopPolymorphism;
 
-import tretak.fileworks.DataImport;
+import fileworks.DataImport;
 
 import java.util.ArrayList;
 import java.util.Collections;

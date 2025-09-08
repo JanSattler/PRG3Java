@@ -1,6 +1,6 @@
 package tretak.oopInheritence;
-import tretak.fileworks.DataImport;
-import tretak.fileworks.DataExport;
+import fileworks.DataImport;
+import fileworks.DataExport;
 
 import java.util.ArrayList;
 

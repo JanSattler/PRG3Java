@@ -1,7 +1,7 @@
 package tretak.files;
 
-import tretak.fileworks.DataExport;
-import tretak.fileworks.DataImport;
+import fileworks.DataExport;
+import fileworks.DataImport;
 
 public class songs {
     public static void main(String[] args) {

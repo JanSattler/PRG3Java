@@ -1,4 +1,4 @@
-package tretak.fileworks;
+package tretak.fileworkss;
 //https://gist.github.com/HonzaBoh/a0cd33af3368749590f82b286d0eb685#file-moviespractice-txt
 import java.io.*;
 import java.nio.file.Files;

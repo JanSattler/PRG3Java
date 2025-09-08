@@ -1,6 +1,6 @@
-package tretak.fileworks;
+package tretak.fileworkss;
 
-import tretak.fileworks.DataImport;
+import fileworks.DataImport;
 
 import java.io.*;
 import java.nio.file.Files;

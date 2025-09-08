@@ -1,6 +1,6 @@
 package tretak.files;
 
-import tretak.fileworks.DataImport;
+import fileworks.DataImport;
 
 public class countryRead {
     public static void main(String[] args) {

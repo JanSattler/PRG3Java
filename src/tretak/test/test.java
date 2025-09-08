@@ -1,7 +1,7 @@
 package tretak.test;
 
-import tretak.fileworks.DataExport;
-import tretak.fileworks.DataImport;
+import fileworks.DataExport;
+import fileworks.DataImport;
 
 public class test {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package tretak.fileworks;
+package tretak.fileworkss;
 
 import java.io.IOException;
 import java.nio.file.Files;

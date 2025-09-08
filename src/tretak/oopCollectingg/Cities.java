@@ -1,5 +1,5 @@
 package tretak.oopCollectingg;
-import tretak.fileworks.DataImport;
+import fileworks.DataImport;
 
 import java.util.ArrayList;
 import java.util.Comparator;

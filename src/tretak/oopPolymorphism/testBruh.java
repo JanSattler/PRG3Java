@@ -3,7 +3,7 @@ package tretak.oopPolymorphism;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import tretak.fileworks.DataImport;
+import fileworks.DataImport;
 
 public class testBruh {
     public static void main(String[] args) {

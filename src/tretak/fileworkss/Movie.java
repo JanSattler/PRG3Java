@@ -1,4 +1,4 @@
-package tretak.fileworks;
+package tretak.fileworkss;
 
 public class Movie {
     String name;
