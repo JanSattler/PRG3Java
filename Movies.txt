@@ -199,7 +199,7 @@ Gigi;1958;1.9;11322
 Accused;2014;1.9;10315
 This Is Spinal Tap;1984;1.8;11424
 The Accused;1988;9.7;14719
-A Time to Kill;1996;5.1;13260
+A tretak.Time to Kill;1996;5.1;13260
 Hackers;1995;8.1;12514
 How to Make an American Quilt;1995;9.5;13755
 Star Wars;1977;9.5;6041
