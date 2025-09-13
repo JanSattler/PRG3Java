@@ -9,7 +9,7 @@ public class Flow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.setLayout(new FlowLayout(FlowLayout.TRAILING, 0, 20));
+        this.setLayout(new FlowLayout(FlowLayout.TRAILING, 0, 20)); //FlowLayout dává komponenty za sebe, když je málo místa, tak se to zalomí na novej řádek
 
         for (int i = 0; i < 6; i++) {
             JButton button = new JButton(String.valueOf(i+1));
