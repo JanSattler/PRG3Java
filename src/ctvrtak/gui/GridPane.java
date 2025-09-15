@@ -5,14 +5,12 @@ import java.awt.*;
 
 public class GridPane extends JFrame {
 
-    final static int DIMENSIONS = 10;
-
-    public GridPane() throws HeadlessException {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+ public GridPane(int dim) throws HeadlessException {
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setLayout(new GridLayout(DIMENSIONS, DIMENSIONS));
-        for (int i = 0; i < DIMENSIONS; i++) {
-            for (int j = 0; j < DIMENSIONS; j++) {
+        this.setLayout(new GridLayout(dim, dim));
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 if ((i+j)%2 == 1) {
                     this.add(new Piece(Color.RED));
                 } else {
@@ -26,7 +24,7 @@ public class GridPane extends JFrame {
     }
 
     public static void main(String[] args) {
-        new GridPane().setVisible(true);
+        new GridPane(10).setVisible(true);
     }
 
 
