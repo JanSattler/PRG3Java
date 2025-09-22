@@ -6,7 +6,6 @@ import java.awt.*;
 public class BankMachine {
     public static void main(String[] args) {
         new InputWindow().setVisible(true);
-        new ResultWindow().setVisible(true);
     }
 }
 
@@ -17,20 +16,10 @@ class InputWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout());
 
-        //JLabel temp = new JLabel();
-        //temp.setPreferredSize(new Dimension(500, 100));
-        //temp.setBackground(Color.blue);
-        //temp.setOpaque(true);
-
         JTextField input = new JTextField("Value");
         input.setPreferredSize(new Dimension(500, 100));
         input.setFont(new Font("Consolas", Font.BOLD, 24));
         input.setHorizontalAlignment(SwingConstants.CENTER);
-
-        //JLabel alsoTemp = new JLabel();
-        //alsoTemp.setPreferredSize(new Dimension(100, 100));
-        //alsoTemp.setBackground(Color.red);
-        //alsoTemp.setOpaque(true);
 
         JButton inButton = new JButton("Go");
         inButton.addActionListener(e -> {
@@ -39,7 +28,8 @@ class InputWindow extends JFrame {
                 if (number <= 0) {
                     JOptionPane.showMessageDialog(null, "Zadejte kladné číslo"); //proč null?
                 } else {
-                    ResultWindow.getNominals(number);
+                    //ResultWindow.getNominals(number);
+                    new ResultWindow(number).setVisible(true);
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Zadejte číslo");
@@ -56,38 +46,72 @@ class InputWindow extends JFrame {
 }
 
 class ResultWindow extends JFrame {
-    static void getNominals(int number) {
-        int[] values = {5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+    final static int[] values = {5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+    static void getNominals(int number, JPanel panel) {
+
         int amount;
         for (int value : values) {
             if (number >= value) {
                 amount = number / value;
                 System.out.println(amount + "x" + value);
                 number -= amount*value;
+            } else {
+                System.out.println("0x" + value);
             }
+
         }
 
     }
-    public ResultWindow() {
+    public ResultWindow(int number) {
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JLabel temp = new JLabel();
-        temp.setPreferredSize(new Dimension(400, 100));
-        temp.setBackground(Color.green);
-        temp.setOpaque(true);
+        JLabel totalValue = new JLabel(String.valueOf(number));
+        totalValue.setPreferredSize(new Dimension(400, 100));
+        totalValue.setHorizontalAlignment(SwingConstants.CENTER);
+        totalValue.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        totalValue.setFont(new Font("Consolas", Font.BOLD, 32));
 
-        JLabel alsoTemp = new JLabel();
+        JPanel gridPanel = new JPanel();
+        gridPanel.setLayout(new GridLayout(3, 4));
+        gridPanel.setPreferredSize(new Dimension(400, 300));
 
-        alsoTemp.setPreferredSize(new Dimension(400, 300));
-        alsoTemp.setBackground(Color.yellow);
-        alsoTemp.setOpaque(true);
+        this.add(totalValue, BorderLayout.NORTH);
+        this.add(gridPanel, BorderLayout.CENTER);
 
-        this.add(temp, BorderLayout.NORTH);
-        this.add(alsoTemp, BorderLayout.CENTER);
+        for (int i = 0; i < values.length ; i++) {
+            gridPanel.add(new BankTile(i+1, i*100));
+        }
 
 
         this.pack();
     }
 
+}
+
+class BankTile extends JPanel {
+    BankTile(int value, int amount) {
+        this.setLayout(new GridLayout(2, 1));
+        JLabel valueLabel = new JLabel(String.valueOf(value));
+        JLabel amountLabel = new JLabel(String.valueOf(amount));
+
+        valueLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+        amountLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+        valueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        amountLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        valueLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        amountLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
+        this.setOpaque(true);
+
+        this.add(amountLabel);
+        this.add(valueLabel);
+
+        if (amount > 0) {
+            this.setBackground(Color.green);
+        } else {
+            this.setBackground(Color.red);
+        }
+    }
 }
