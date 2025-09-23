@@ -47,10 +47,11 @@ class InputWindow extends JFrame {
 
 class ResultWindow extends JFrame {
     final static int[] values = {5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+    int number;
     static void getNominals(int number, JPanel panel) {
-
-        int amount;
+        int amount = 0;
         for (int value : values) {
+            amount = 0;
             if (number >= value) {
                 amount = number / value;
                 System.out.println(amount + "x" + value);
@@ -58,6 +59,7 @@ class ResultWindow extends JFrame {
             } else {
                 System.out.println("0x" + value);
             }
+            panel.add(new BankTile(value, amount));
 
         }
 
@@ -67,6 +69,7 @@ class ResultWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        this.number = number;
         JLabel totalValue = new JLabel(String.valueOf(number));
         totalValue.setPreferredSize(new Dimension(400, 100));
         totalValue.setHorizontalAlignment(SwingConstants.CENTER);
@@ -74,16 +77,13 @@ class ResultWindow extends JFrame {
         totalValue.setFont(new Font("Consolas", Font.BOLD, 32));
 
         JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(3, 4));
+        gridPanel.setLayout(new GridLayout(3, 4, 3, 3));
         gridPanel.setPreferredSize(new Dimension(400, 300));
 
         this.add(totalValue, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
 
-        for (int i = 0; i < values.length ; i++) {
-            gridPanel.add(new BankTile(i+1, i*100));
-        }
-
+        getNominals(number, gridPanel);
 
         this.pack();
     }
@@ -94,7 +94,7 @@ class BankTile extends JPanel {
     BankTile(int value, int amount) {
         this.setLayout(new GridLayout(2, 1));
         JLabel valueLabel = new JLabel(String.valueOf(value));
-        JLabel amountLabel = new JLabel(String.valueOf(amount));
+        JLabel amountLabel = new JLabel(amount + "x");
 
         valueLabel.setFont(new Font("Consolas", Font.BOLD, 24));
         amountLabel.setFont(new Font("Consolas", Font.BOLD, 24));
@@ -105,13 +105,13 @@ class BankTile extends JPanel {
 
         this.setOpaque(true);
 
-        this.add(amountLabel);
-        this.add(valueLabel);
-
         if (amount > 0) {
             this.setBackground(Color.green);
         } else {
             this.setBackground(Color.red);
         }
+
+        this.add(amountLabel);
+        this.add(valueLabel);
     }
 }
