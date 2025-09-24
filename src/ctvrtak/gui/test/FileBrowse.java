@@ -84,9 +84,15 @@ class ResultWindow extends JFrame {
 
         JLabel numberOfDirs = new JLabel("Složek: " + getAmountOfDirs(folder));
         numberOfDirs.setOpaque(true);
+        numberOfDirs.setHorizontalAlignment(SwingConstants.CENTER);
+        numberOfDirs.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        numberOfDirs.setFont(new Font("Consolas", Font.BOLD, 24));
 
         JLabel numberOfFiles = new JLabel("Souborů: " + getAmountOfFiles(folder));
-        numberOfDirs.setOpaque(true);
+        numberOfFiles.setOpaque(true);
+        numberOfFiles.setHorizontalAlignment(SwingConstants.CENTER);
+        numberOfFiles.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        numberOfFiles.setFont(new Font("Consolas", Font.BOLD, 24));
 
         dirStats.add(numberOfDirs);
         dirStats.add(numberOfFiles);
@@ -95,10 +101,10 @@ class ResultWindow extends JFrame {
         JPanel files = new JPanel();
 
         files.setPreferredSize(new Dimension(400, 300));
-        files.setLayout(new GridLayout(folder.listFiles().length, 3));
+        files.setLayout(new GridLayout(folder.listFiles().length, 1));
 
         for (File file : folder.listFiles()) {
-
+            files.add(new FileInfo(file.getName(), file.getPath(), file.length()/1000, file.isDirectory()));
         }
 
         this.add(dirStats, BorderLayout.WEST);
@@ -108,4 +114,42 @@ class ResultWindow extends JFrame {
         this.pack();
     }
 
+}
+
+class FileInfo extends JPanel {
+    FileInfo(String name, String path, long size, boolean isDir) {
+        this.setLayout(new GridLayout(1, 3));
+        JLabel nameLabel = new JLabel(name);
+        JLabel pathLabel = new JLabel(path);
+        JLabel sizeLabel = new JLabel(String.valueOf(size));
+
+        if (isDir) {
+            nameLabel.setForeground(Color.blue);
+        } else {
+            nameLabel.setForeground(Color.GREEN);
+        }
+
+
+        nameLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        pathLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        sizeLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        pathLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        sizeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        nameLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+        pathLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+        sizeLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+
+        this.add(nameLabel);
+        this.add(pathLabel);
+        this.add(sizeLabel);
+    }
+}
+
+class DirInfo extends JPanel {
+    DirInfo(File folder) {
+
+    }
 }
