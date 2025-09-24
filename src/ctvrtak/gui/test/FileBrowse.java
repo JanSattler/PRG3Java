@@ -148,8 +148,3 @@ class FileInfo extends JPanel {
     }
 }
 
-class DirInfo extends JPanel {
-    DirInfo(File folder) {
-
-    }
-}
