@@ -1,7 +1,7 @@
 package ctvrtak.gui;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+//import com.formdev.flatlaf.FlatDarkLaf;
+//import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -44,12 +44,12 @@ public class TableDemo extends JFrame {
 
     public static void main(String[] args) {
 
-        FlatDarkLaf.setup();
-        try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
-        }
+        //FlatDarkLaf.setup();
+        //try {
+        //    //UIManager.setLookAndFeel(new FlatDarkLaf());
+        //} catch (UnsupportedLookAndFeelException e) {
+        //    throw new RuntimeException(e);
+        //}
         new TableDemo().setVisible(true);
     }
 }
