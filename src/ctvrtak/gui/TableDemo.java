@@ -19,10 +19,10 @@ public class TableDemo extends JFrame {
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         JTable table = new JTable(model);
-//        table.setSelectionBackground(Color.cyan);
-////        table.setEnabled(false);
-//        table.setForeground(Color.RED);
-//        table.setBackground(Color.YELLOW);
+        table.setSelectionBackground(Color.cyan);
+//        table.setEnabled(false);
+        table.setForeground(Color.RED);
+        table.setBackground(Color.YELLOW);
         table.setFont(new Font("Consolas", Font.BOLD, 16));
 
         table.setRowHeight(34);

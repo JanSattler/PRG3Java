@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class DataTable extends JFrame {
     static ArrayList<Record> data;
@@ -24,18 +26,18 @@ public class DataTable extends JFrame {
         model = new DefaultTableModel(column,0);
 
         //nacteni a parse
-        //List<String> lines = Files.readAllLines(Paths.get("inputs\\Movies.txt"));
-        //String[] vals;
-        ////nacte text a zaparsuje
-        //for (String line : lines) {
-        //    vals = line.split(";");
-        //    data.add(new Record(
-        //            vals[0],
-        //            Integer.parseInt(vals[1]),
-        //            Integer.parseInt(vals[2]),
-        //            Double.parseDouble(vals[3])
-        //    ));
-        //}
+        List<String> lines = Files.readAllLines(Paths.get("inputs\\Movies.txt"));
+        String[] vals;
+        //nacte text a zaparsuje
+        for (String line : lines) {
+            vals = line.split(";");
+            data.add(new Record(
+                    vals[0],
+                    Integer.parseInt(vals[1]),
+                    Integer.parseInt(vals[2]),
+                    Double.parseDouble(vals[3])
+            ));
+        }
 
         for (Record r : data) {
             model.addRow(r.returnAsTableRow());
