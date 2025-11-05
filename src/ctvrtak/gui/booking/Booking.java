@@ -9,7 +9,7 @@ public class Booking extends JFrame {
     public Booking() {
         setTitle("Booking Form");
         setSize(500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JLabel headerLabel = new JLabel("GetAway", JLabel.CENTER);
@@ -90,22 +90,22 @@ public class Booking extends JFrame {
             }
 
             if (phoneField.getText().length() != 9) {
-                errors.append("- phone number must be 9 digits");
+                errors.append("- phone number must be 9 digits\n");
             } else {
                 for (int i = 0; i < phoneField.getText().length(); i++) {
                     if (!Character.isDigit(phoneField.getText().charAt(i))) {
-                        errors.append("- only digits pls in phone number");
+                        errors.append("- only digits pls in phone number\n");
                         break;
                     }
                 }
             }
 
             if (discountCheckBox.isSelected() && !cityOption.isSelected()) {
-                errors.append("- student discount is avalible only for cities");
+                errors.append("- student discount is avalible only for cities\n");
             }
 
             if (beachOption.isSelected() && daysSlider.getValue() > 60) {
-                errors.append("- beach is ok only for 60 days max");
+                errors.append("- beach is ok only for 60 days max\n");
             }
 
 
