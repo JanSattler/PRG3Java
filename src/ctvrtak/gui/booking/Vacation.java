@@ -10,20 +10,39 @@ public class Vacation {
     public Vacation(String applicant, String phoneNumber, int destinationOption, int days, boolean discount) {
         this.applicant = applicant;
         this.phoneNumber = phoneNumber;
+        this.destination = Destination.getDestByCode(destinationOption);
         this.days = days;
         this.discount = discount;
     }
 
     public String[] getTableRow() {
-
+        return new String[]{
+                applicant,
+                phoneNumber,
+                destination
+        }
     }
 }
 
 enum Destination {
-    BEACH(0),
-    CITY(1),
-    MOUNTAINS(2);
+    BEACH("Beach"),
+    CITY("City"),
+    MOUNTAINS("Mountains");
 
-    Destination(int i) {
+    Destination(String i) {
+    }
+
+    public static Destination getDestByCode(int code) {
+        switch (code) {
+            case 0:
+                return BEACH;
+                //nemusim dát break když dam return
+            case 1:
+                return CITY;
+            case 2:
+                return MOUNTAINS;
+            default:
+                return CITY;
+        }
     }
 }
