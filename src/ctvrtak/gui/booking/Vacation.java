@@ -1,16 +1,15 @@
 package ctvrtak.gui.booking;
 
 public class Vacation {
-    String applicant, phoneNumber;
-    Destination destination;
-    int destinationOption;
+    String applicant, phoneNum;
+    Destinations dest;
     int days;
     boolean discount;
 
-    public Vacation(String applicant, String phoneNumber, int destinationOption, int days, boolean discount) {
+    public Vacation(String applicant, String phoneNum, int destOption, int days, boolean discount) {
         this.applicant = applicant;
-        this.phoneNumber = phoneNumber;
-        this.destination = Destination.getDestByCode(destinationOption);
+        this.phoneNum = phoneNum;
+        this.dest = Destinations.getDestByCode(destOption);
         this.days = days;
         this.discount = discount;
     }
@@ -18,31 +17,34 @@ public class Vacation {
     public String[] getTableRow() {
         return new String[]{
                 applicant,
-                phoneNumber,
-                destination
-        }
+                phoneNum,
+                dest.toString(),
+                String.valueOf(days),
+                discount ? "Yes" : "No"
+        };
     }
 }
-
-enum Destination {
+enum Destinations{
     BEACH("Beach"),
     CITY("City"),
     MOUNTAINS("Mountains");
 
-    Destination(String i) {
+    private final String destinationName;
+
+    Destinations(String destinationName) {
+        this.destinationName = destinationName;
     }
 
-    public static Destination getDestByCode(int code) {
-        switch (code) {
-            case 0:
-                return BEACH;
-                //nemusim dát break když dam return
-            case 1:
-                return CITY;
-            case 2:
-                return MOUNTAINS;
-            default:
-                return CITY;
-        }
+    public static Destinations getDestByCode(int code){
+        return switch (code) {
+            case 0 -> BEACH;
+            case 2 -> MOUNTAINS;
+            default -> CITY;
+        };
+    }
+
+    @Override
+    public String toString() {
+        return destinationName;
     }
 }
