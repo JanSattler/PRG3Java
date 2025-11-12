@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Booking extends JFrame {
+
+    JRadioButton beachOption, cityOption, mountainsOption;
+
     public Booking() {
         setTitle("Booking Form");
         setSize(500, 400);
@@ -44,18 +47,19 @@ public class Booking extends JFrame {
         JLabel optionsLabel = new JLabel("Choose Your Destination:");
         optionsLabel.setFont(new Font("Consolas", Font.PLAIN, 14));
         JPanel optionsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JRadioButton beachOption = new JRadioButton("Beach");
+        beachOption = new JRadioButton("Beach");
         beachOption.setFont(new Font("Consolas", Font.PLAIN, 12));
-        JRadioButton mountainOption = new JRadioButton("Mountains");
-        mountainOption.setFont(new Font("Consolas", Font.PLAIN, 12));
-        JRadioButton cityOption = new JRadioButton("City");
+        mountainsOption = new JRadioButton("Mountains");
+        mountainsOption.setFont(new Font("Consolas", Font.PLAIN, 12));
+        cityOption = new JRadioButton("City");
+        cityOption.setSelected(true);
         cityOption.setFont(new Font("Consolas", Font.PLAIN, 12));
         ButtonGroup optionsGroup = new ButtonGroup();
         optionsGroup.add(beachOption);
-        optionsGroup.add(mountainOption);
+        optionsGroup.add(mountainsOption);
         optionsGroup.add(cityOption);
         optionsPanel.add(beachOption);
-        optionsPanel.add(mountainOption);
+        optionsPanel.add(mountainsOption);
         optionsPanel.add(cityOption);
         formPanel.add(optionsLabel);
         formPanel.add(optionsPanel);
@@ -76,48 +80,59 @@ public class Booking extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         JButton submitButton = new JButton("Submit");
         submitButton.setFont(new Font("Consolas", Font.BOLD, 14));
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Font("Consolas", Font.BOLD, 14));
-
+        JButton clearButton = new JButton("Clear");
+        clearButton.setFont(new Font("Consolas", Font.BOLD, 14));
         buttonPanel.add(submitButton);
-        buttonPanel.add(cancelButton);
+        buttonPanel.add(clearButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         submitButton.addActionListener(e -> {
             StringBuilder errors = new StringBuilder();
+            for (Vacation v : MainMenu.data) {
+                if (v.applicant.equals(nameField.getText())) {
+                    errors.append("- duplicitní záznam more");
+                }
+            }
             if (nameField.getText().isEmpty()) {
-                errors.append("- name field cannost be empty.\n");
+                errors.append("- Name field cannot be empty.\n");
             }
 
             if (phoneField.getText().length() != 9) {
-                errors.append("- phone number must be 9 digits\n");
+                errors.append("- Phone number must be 9 digits long.\n");
             } else {
                 for (int i = 0; i < phoneField.getText().length(); i++) {
                     if (!Character.isDigit(phoneField.getText().charAt(i))) {
-                        errors.append("- only digits pls in phone number\n");
+                        errors.append("- Only digits allowed for phone number field.\n");
                         break;
                     }
                 }
             }
-
             if (discountCheckBox.isSelected() && !cityOption.isSelected()) {
-                errors.append("- student discount is avalible only for cities\n");
+                errors.append("- You can only submit reservation for a city using student's discount.\n");
             }
 
-            if (beachOption.isSelected() && daysSlider.getValue() > 60) {
-                errors.append("- beach is ok only for 60 days max\n");
+            if (beachOption.isSelected() && daysSlider.getValue() > 60){
+                errors.append("- Beach options allow only 60 days reservation.\n");
             }
-
 
             if (!errors.isEmpty()) {
-
-                JOptionPane.showMessageDialog(null, "Following errors occured:\n" + errors, "Chyba", JOptionPane.ERROR_MESSAGE);    //kdyby tam bylo máísto null to okno hlavní, tak to vyskočí uprostřed něj
+                JOptionPane.showMessageDialog(null, "Following errors occurred:\n" + errors, "Errors", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "ok", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                Vacation vacation = new Vacation(
+                        nameField.getText(),
+                        phoneField.getText(),
+                        getDestinationCode(),
+                        daysSlider.getValue(),
+                        discountCheckBox.isSelected()
+                );
+                MainMenu.model.addRow(vacation.getTableRow());
+                MainMenu.data.add(vacation);
+                JOptionPane.showMessageDialog(null, "Ok", "Info", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
         });
 
-        cancelButton.addActionListener(new ActionListener() {
+        clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nameField.setText("");
@@ -127,6 +142,16 @@ public class Booking extends JFrame {
                 daysSlider.setValue(0);
             }
         });
+    }
+
+    int getDestinationCode(){
+        if (beachOption.isSelected()){
+            return 0;
+        } else if (mountainsOption.isSelected()) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {

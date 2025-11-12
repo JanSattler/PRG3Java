@@ -86,12 +86,29 @@ public class MainMenu extends JFrame {
         detailButton.addActionListener(e -> {
             new ReadView(data.get(table.getSelectedRow())).setVisible(true);
         });
+
+        JButton deleteButton = new JButton("delete");
+        deleteButton.addActionListener(e -> {
+            int choice = JOptionPane.showConfirmDialog(this, "Rly?", "rly", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                model.removeRow(table.getSelectedRow());
+                for (Vacation v : data) {
+                    if (v.equals(data.get(table.getSelectedRow()+1))) {
+                        data.remove(data.get(table.getSelectedRow()+1));
+                        break;
+                    }
+                }
+            }
+
+        });
+
         saveButton.setFont(DEAFULT_BUTTON_FONT);
         inputButton.setFont(DEAFULT_BUTTON_FONT);
         detailButton.setFont(DEAFULT_BUTTON_FONT);
         buttonsPanel.add(detailButton);
         buttonsPanel.add(inputButton);
         buttonsPanel.add(saveButton);
+        buttonsPanel.add(deleteButton);
 
         //add sekce
         //north
