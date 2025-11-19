@@ -16,6 +16,8 @@ public class CineRes extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(gridRows, gridCols));
 
+
+        
         for (int i = 0; i < gridRows; i++) {
             for (int j = 0; j < gridCols; j++) {
                 this.add(new Seat());
