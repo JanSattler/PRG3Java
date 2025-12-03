@@ -1,6 +1,5 @@
 package ctvrtak.gui.booking;
 
-import javax.print.attribute.standard.Destination;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -12,6 +11,7 @@ public class MainMenu extends JFrame {
     static final Font DEAFULT_FONT = new Font("Consolas", Font.BOLD, 18);
     static final Font DEAFULT_BUTTON_FONT = new Font("Consolas", Font.BOLD, 14);
     public static final String LOAD_FILE_PATH = "VacSave.ser";
+    public static JTable table;
     public static DefaultTableModel model;
 
 
@@ -60,13 +60,13 @@ public class MainMenu extends JFrame {
         //CENTER - table only
         String[] headers = {"Name", "Phone num.", "Destination", "Days", "Discounted"};
         model = new DefaultTableModel(headers, 0);
-        JTable table = new JTable(model);
+        table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         //south
         JPanel buttonsPanel = new JPanel(new FlowLayout());
         JButton inputButton = new JButton("New application");
         inputButton.addActionListener(e -> {
-            new Booking().setVisible(true);
+            new Booking(null).setVisible(true);
         });
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
@@ -87,28 +87,33 @@ public class MainMenu extends JFrame {
             new ReadView(data.get(table.getSelectedRow())).setVisible(true);
         });
 
-        JButton deleteButton = new JButton("delete");
-        deleteButton.addActionListener(e -> {
-            int choice = JOptionPane.showConfirmDialog(this, "Rly?", "rly", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(a -> {
+            int input = JOptionPane.showConfirmDialog(null, "Do you wish to delete selected record?", "Delete record", JOptionPane.YES_NO_OPTION);
+            if (input == JOptionPane.YES_OPTION){
+                data.remove(table.getSelectedRow());
                 model.removeRow(table.getSelectedRow());
-                for (Vacation v : data) {
-                    if (v.equals(data.get(table.getSelectedRow()+1))) {
-                        data.remove(data.get(table.getSelectedRow()+1));
-                        break;
-                    }
-                }
+                //uz neni nutne:
+//                table.remove(table.getSelectedRow());
             }
-
         });
-
+        JButton editButton = new JButton("Edit");
+        editButton.addActionListener(e -> {
+            if (table.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(null, "No row is selected for editing", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            new Booking(data.get(table.getSelectedRow())).setVisible(true);
+        });
+        editButton.setFont(DEAFULT_BUTTON_FONT);
+        deleteButton.setFont(DEAFULT_BUTTON_FONT);
         saveButton.setFont(DEAFULT_BUTTON_FONT);
         inputButton.setFont(DEAFULT_BUTTON_FONT);
         detailButton.setFont(DEAFULT_BUTTON_FONT);
         buttonsPanel.add(detailButton);
         buttonsPanel.add(inputButton);
-        buttonsPanel.add(saveButton);
         buttonsPanel.add(deleteButton);
+        buttonsPanel.add(editButton);
+        buttonsPanel.add(saveButton);
 
         //add sekce
         //north
