@@ -171,7 +171,7 @@ class DonationForm extends JFrame {
             }
             if (!firstTimeCheckBox.isSelected()) {
                 for (Donation d : BloodTest.donations) {
-                    if (d.name.equals(nameField.getText())) {
+                    if (d.name.equals(nameField.getText())) {   //lepší dát přes stream
                         long daysBetween = ChronoUnit.DAYS.between(d.getDate(), parseDate(dateField.getText()));
                         if (d.gender.equals("Female") && daysBetween < 120) {
                             errors.append("- Od vašeho posledního darování musíuběhnout alespoň 120 dní");
