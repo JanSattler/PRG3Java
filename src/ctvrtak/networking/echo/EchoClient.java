@@ -33,7 +33,7 @@ public class EchoClient {
                 //zpravu ze scanneru (klavesnice/konzole) nacti a posli do outputu -> server
                 pw.println(message);
 
-                String response = in.readLine();
+                String response = in.readLine();    //přečte si právě poslaný text z druhé strany
 
                 if (response == null) {
                     System.out.println("Server ukoncil pripojeni");
