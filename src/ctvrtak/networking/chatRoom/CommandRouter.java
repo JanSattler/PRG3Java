@@ -6,7 +6,7 @@ public final class CommandRouter {
 
     public static void handleCommand(ClientHandler client, String input) {
 
-        // ParsedCommand cmd = parse(input);
+        ParsedCommand cmd = parse(input);
 
         switch (cmd.name()) {
             case "help"   -> cmdHelp(client);
@@ -66,6 +66,11 @@ public final class CommandRouter {
 
     private static void cmdUnknown(ClientHandler client, String cmd) {
         // TODO
+    }
+
+    private record ParsedCommand(String name, String args)  //record je že parametry jsou neměnné, vše je final, nemá getry a setry, např String
+    {
+
     }
 
 }
