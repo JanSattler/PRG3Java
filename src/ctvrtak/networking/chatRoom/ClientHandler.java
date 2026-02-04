@@ -16,6 +16,10 @@ public class ClientHandler extends Thread{
         this.clientID = clientID;
     }
 
+    public String getClientID() {
+        return clientID;
+    }
+
     @Override
     public void run() {
         try {
