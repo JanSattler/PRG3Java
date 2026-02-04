@@ -20,11 +20,21 @@ public class ClientHandler extends Thread{
     public void run() {
         try {
             out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()),true);
+            //tudy komunikuje client k serveru
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            out.println("Successful connect");
+            out.println("Successful connect");  //vypise u klienta od serveru
             RoomManager.ROOM_MANAGER.joinLobby(this);
+            String recieved;
 
+
+            while ((recieved = in.readLine()) != null) {
+                if (recieved.equalsIgnoreCase("/quit")) {
+                    break;
+                }
+                System.out.println(clientID + ":" + recieved);
+                CommandRouter.handleCommand(this, recieved);
+            }
 
         } catch (IOException e) {
             System.out.println("Disconnected: " + clientID + " (" + e.getMessage() + ")");
