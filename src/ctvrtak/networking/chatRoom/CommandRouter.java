@@ -14,6 +14,7 @@ public final class CommandRouter {
             case "join"   -> cmdJoin(client, cmd.arg());
             case "leave"  -> cmdLeave(client);
             case "where"  -> cmdWhere(client);
+            case "members"-> cmdMembers(client);
             case "quit"   -> cmdQuit(client);
             default       -> cmdUnknown(client, cmd.name());
         }
@@ -38,14 +39,23 @@ public final class CommandRouter {
         RoomManager.ROOM_MANAGER.roomCast(client, text);
     }
 
+    private static void cmdMembers(ClientHandler client) {
+        client.send(RoomManager.ROOM_MANAGER.listRoomMembers(client, RoomManager.ROOM_MANAGER.getCurrentRoom(client)).toString());
+    }
+
     private static void cmdList(ClientHandler client) {
         //format: ["r1", "r2",....]
         client.send(RoomManager.ROOM_MANAGER.listRoomNames().toString());
     }
 
     private static void cmdCreate(ClientHandler client, String room) {
-        client.send(RoomManager.ROOM_MANAGER.createRoom(room) ? "Room created" : "Could not create room");
-        cmdJoin(client, room);
+
+        if (RoomManager.ROOM_MANAGER.createRoom(room)) {
+            client.send("Room created");
+            cmdJoin(client, room);
+        } else {
+            client.send("This room already exists");
+        }
     }
 
     private static void cmdJoin(ClientHandler client, String room) {

@@ -3,6 +3,7 @@ package ctvrtak.networking.chatRoom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -40,12 +41,16 @@ public class RoomManager {
     }
 
     public boolean joinRoom(ClientHandler who, String where){
-        Room toJoin = rooms.get(where);
+        Room toJoin;
+        if ((toJoin = rooms.get(where)) == null) {
+            return false;
+        }
         //chce jit ze stejne room do stejne
         Room current = membership.get(who);
         if (toJoin == null || toJoin.equals(current))
             return false;
 
+        membership.replace(who, toJoin);
         toJoin.addMember(who);
         current.removeMember(who);
 
@@ -71,5 +76,14 @@ public class RoomManager {
 
     public List<String> listRoomNames(){
         return new ArrayList<>(rooms.keySet());
+    }
+
+    public List<String> listRoomMembers(ClientHandler client, String roomName) {
+        List<String> members = new ArrayList<>();
+        Room currentRoom = membership.get(client);
+        for (ClientHandler anotherClient : currentRoom.getMembers()) {
+            members.add(anotherClient.getClientID());
+        }
+        return members;
     }
 }

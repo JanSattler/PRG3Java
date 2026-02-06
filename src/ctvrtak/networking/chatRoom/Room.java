@@ -22,6 +22,10 @@ public class Room {
         return isLobby;
     }
 
+    public Set<ClientHandler> getMembers() {
+        return members;
+    }
+
     public void addMember(ClientHandler session){
         members.add(session);
     }
