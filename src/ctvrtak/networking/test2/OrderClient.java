@@ -19,7 +19,7 @@ public class OrderClient {
             System.out.println("Zadej množství: ");
             int amount = sc.nextInt();
 
-            out.writeObject(new Order(item, amount));
+            out.writeObject(new Order1(item, amount));
             out.flush();
 
             OrderResponse orderResponse = (OrderResponse) in.readObject();

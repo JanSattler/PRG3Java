@@ -33,7 +33,7 @@ public class OrderServer {
              ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
             //bude Order
-            Order order = (Order) in.readObject();
+            Order1 order = (Order1) in.readObject();
             if (CATALOG.get(order.itemName()) != null && order.qty() > 1) {
                 out.writeObject(new OrderResponse(order.itemName(), (int) (order.qty() * CATALOG.get(order.itemName()))));
                 out.flush();
