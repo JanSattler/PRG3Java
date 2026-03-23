@@ -2,6 +2,7 @@ package ctvrtak.DB.Browser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 public class WorldBrowse extends JFrame {
 
@@ -11,6 +12,13 @@ public class WorldBrowse extends JFrame {
     MyButton saveButton, cancelButton, updateButton;
     MyButton firstButton, nextButton, prevButton, lastButton;
     MyButton addButton, deleteButton;
+    static ResultSet set;
+
+    private static final String USER = "pvs";
+    private static final String PASSWORD = "infis";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/world";
+
+
 
     public WorldBrowse() {
         setSize(700, 350);
@@ -98,6 +106,19 @@ public class WorldBrowse extends JFrame {
         saveButton.setEnabled(false);
         cancelButton.setEnabled(false);
         setFields(false);
+
+        first();
+    }
+
+    void loadInfo(){
+        try {
+            IDText.setText(set.getString("ID"));
+            nameText.setText(set.getString("Name"));
+            countryText.setText(set.getString("CountryCode"));
+            populationText.setText(String.valueOf(set.getInt("Population")));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void startAdd() {
@@ -148,23 +169,64 @@ public class WorldBrowse extends JFrame {
     }
 
     void deleteRecord() {
-        JOptionPane.showMessageDialog(this, "TMP...");
+        try {
+            set.deleteRow();
+
+            if (set.next()) {
+                next();
+            } else {
+                previous();
+            }
+            JOptionPane.showMessageDialog(this, "record deleted niga");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void next() {
-        JOptionPane.showMessageDialog(this, "TMP...");
+        try {
+            if (set.next()) {
+                loadInfo();
+            } else {
+                set.previous();
+                JOptionPane.showMessageDialog(this, "konec seznamu");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void previous() {
-        JOptionPane.showMessageDialog(this, "TMP...");
+        try {
+            if (set.previous()) {
+                loadInfo();
+            } else {
+                set.next();
+                JOptionPane.showMessageDialog(this, "začátek seznamu");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void first() {
-        JOptionPane.showMessageDialog(this, "TMP...");
+        try {
+            if (set.first()) {
+                loadInfo();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void last() {
-        JOptionPane.showMessageDialog(this, "TMP...");
+        try {
+            if (set.last()) {
+                loadInfo();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL problem",":(" , JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void setFields(boolean status) {
@@ -182,7 +244,18 @@ public class WorldBrowse extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new WorldBrowse().setVisible(true));
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+            Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String queryAll = "SELECT * FROM city";
+            set = statement.executeQuery(queryAll);
+            set.next();
+
+            SwingUtilities.invokeLater(() -> new WorldBrowse().setVisible(true));
+        } catch (SQLException e) {
+            System.out.println("SQL problem");
+        }
+
     }
 }
 
