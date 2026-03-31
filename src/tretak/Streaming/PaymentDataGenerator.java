@@ -128,16 +128,17 @@ public class PaymentDataGenerator {
 
 
         //nejpopulárnější platební metoda uživatelů kteří utratí aplespoň 200
-        String mostPopularPaymentMetohd = payments.stream()
-                .filter(payment -> payment.getAmount() >= 200)
-                .collect(Collectors.groupingBy(Payment::getPaymentMethod, Collectors.counting()))
-                .entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("NELZE URČIT");
+        String mostPopularPaymentMethod = payments.stream()
+                .filter(payment -> payment.getAmount() >= 200) // 1️⃣ Filtrované platby (pouze ty s částkou 200+)
+                .collect(Collectors.groupingBy(Payment::getPaymentMethod, Collectors.counting())) // 2️⃣ Počet plateb podle metody
+                .entrySet().stream() // 3️⃣ Převod mapy na stream (abychom mohli hledat max)
+                .max(Map.Entry.comparingByValue()) // 4️⃣ Najdeme záznam s nejvyšším počtem plateb (hodnoty)
+                .map(Map.Entry::getKey) // 5️⃣ Získáme jen název metody platby (ne celý záznam)
+                .orElse("NELZE URČIT"); // 6️⃣ Pokud žádná metoda nevyhovuje, vrátíme výchozí hodnotu
+
 
         System.out.println("-----------------------------------------------------------------------");
-        System.out.println(mostPopularPaymentMetohd);
+        System.out.println(mostPopularPaymentMethod);
 
 
         //vlastni kategorie: dnes, v tydnu, posledni mesic
