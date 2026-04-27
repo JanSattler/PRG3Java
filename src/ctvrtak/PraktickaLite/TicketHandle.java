@@ -112,7 +112,7 @@ public class TicketHandle {
 
     static Map<String, List<SupportTicket>> employeeTickets() {
         return supportTickets.stream()
-                .collect(Collectors.groupingBy(SupportTicket::getEmployeeId));
+                .collect(Collectors.groupingBy(SupportTicket::getEmployeeId)); //, Collectors.toList() nemusí být
     }
 
     static Map<String, Double> dptAverages() {

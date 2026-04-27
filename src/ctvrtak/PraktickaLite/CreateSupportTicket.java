@@ -71,7 +71,7 @@ public class CreateSupportTicket extends JFrame {
             if (!errors.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Following errors occurred:\n" + errors, "Errors", JOptionPane.ERROR_MESSAGE);
             } else {
-                int lastTicketId = TicketHandle.supportTickets.get(TicketHandle.supportTickets.size() - 1).getTicketId();
+                int lastTicketId = TicketHandle.supportTickets.getLast().getTicketId();
                 SupportTicket st = new SupportTicket(
                         lastTicketId + 1,
                         employeeIDField.getText(),
